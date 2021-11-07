@@ -2,10 +2,13 @@ interface User {
   isLogin: boolean;
   id: string;
   cardNum: string;
-  status: "in" | "out";
+  state: "checkIn" | "checkOut";
+  checkinAt: string | null;
+  checkoutAt: string | null;
   profile: string;
   isAdmin: boolean;
 }
+
 interface Cluster {
   openAt: string | null;
   closeAt: string | null;
@@ -14,6 +17,7 @@ interface Cluster {
   seochoLimitation: number;
   gaepoLimitation: number;
 }
+
 interface Status {
   seocho: number;
   gaepo: number;

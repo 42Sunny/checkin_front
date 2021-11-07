@@ -28,7 +28,9 @@ const CheckInPage = () => {
         isLogin,
         id: user.login,
         cardNum: user.card !== null ? user.card : "",
-        status: user.card !== null ? "in" : "out",
+        state: user.state,
+        checkinAt: user.checkin_at,
+        checkoutAt: user.checkout_at,
         profile: user.profile_image_url || DEFAULT_PROFILE,
         isAdmin,
       });

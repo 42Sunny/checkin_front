@@ -15,7 +15,11 @@ interface GetUserStatus {
     AxiosResponse<{
       user: {
         login: string;
-        card: null | string;
+        card: string | null;
+        state: "checkIn" | "checkOut";
+        log_id: number;
+        checkin_at: string | null;
+        checkout_at: string | null;
         profile_image_url: string | null;
       };
       cluster: {

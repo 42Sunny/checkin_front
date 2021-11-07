@@ -22,7 +22,9 @@ const initalState: User = {
   isLogin: false,
   id: "",
   cardNum: "",
-  status: "out",
+  state: "checkOut",
+  checkinAt: null,
+  checkoutAt: null,
   profile: DEFAULT_PROFILE,
   isAdmin: false,
 };
@@ -45,7 +47,9 @@ const userReducer = (state = initalState, action: UserActions) => {
         ...state,
         id: action.payload.id,
         cardNum: action.payload.cardNum,
-        status: action.payload.status,
+        state: action.payload.state,
+        checkinAt: action.payload.checkinAt,
+        checkoutAt: action.payload.checkoutAt,
         profile: action.payload.profile,
       };
     case SET_CARD_NUM:

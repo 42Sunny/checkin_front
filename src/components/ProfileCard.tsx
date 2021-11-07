@@ -14,7 +14,7 @@ interface IProps {
 const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
   const history = useHistory();
   const {
-    user: { cardNum, status, id, profile },
+    user: { cardNum, state, id, profile },
     setCardNum,
   } = useUser();
 
@@ -79,7 +79,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
         <img className={classes.profile} src={profile} alt='profile' />
         <h2>{id}</h2>
       </div>
-      {status === "out" ? (
+      {state === "checkOut" ? (
         <CheckInForm handleCheckIn={handleCheckIn} />
       ) : (
         <CheckOutUi handleCheckOut={handleCheckOut} />
