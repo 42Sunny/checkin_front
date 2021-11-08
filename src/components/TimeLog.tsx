@@ -2,6 +2,8 @@ import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
 import { getDailyUsage } from "../api/api";
+import useUser from "../utils/hooks/useUser";
+
 import classes from "../styles/TimeLog.module.css";
 
 // const FOUR_HOURS = 4 * 60 * 60;
@@ -14,6 +16,13 @@ interface IProps {
 const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
   const [logs, setLogs] = useState<Usage[]>([]);
   // const [count, setCount] = useState(0);
+  const {
+    user: { checkinAt },
+  } = useUser();
+
+  let checkinTime = "";
+  if (checkinAt)
+    checkinTime = moment(new Date(checkinAt)).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm");
 
   const getLogs = async () => {
     try {
@@ -53,11 +62,14 @@ const TimeLog: React.FC<IProps> = ({ handleFlip }) => {
       <div className={classes["util-box"]}>
         <AccountBoxIcon onClick={handleFlip} />
       </div>
-      <h4 className={classes["time-log-title"]}>CLUSTER LOG</h4>
+      <h4 className={classes["time-log-title"]}>클러스터 로그</h4>
       {/* <div className={classes["time-log-all-count"]}>ALL: {count}₳</div> */}
+
+      <div style={{ margin: "0.7rem 0" }}>체크인 시각: {checkinTime}</div>
+
       <li className={classes["log-data"]}>
-        <div>DATE</div>
-        <div>TIME</div>
+        <div>날짜</div>
+        <div>이용 시간</div>
         {/* <div>WALLET</div> */}
       </li>
       <hr className={classes.divider} />
