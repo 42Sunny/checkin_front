@@ -1,89 +1,47 @@
 import ListIcon from "@mui/icons-material/List";
-import React, { useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import { getUserStatus, postCheckIn, postCheckOut } from "../api/api";
+import React from "react";
 import classes from "../styles/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInForm from "./CheckInForm";
 import CheckOutUi from "./CheckOutUi";
 
-interface IProps {
+interface UtilBoxProps {
   handleFlip: (e: React.MouseEvent) => void;
 }
+const UtilBox: React.FC<UtilBoxProps> = ({ handleFlip }) => (
+  <div className={classes["util-box"]}>
+    <ListIcon onClick={handleFlip} />
+  </div>
+);
+interface ProfileProps {
+  profile: string;
+  userId: string;
+}
+const Profile: React.FC<ProfileProps> = ({ profile, userId }) => (
+  <div className={classes["profile-wrapper"]}>
+    <img className={classes.profile} src={profile} alt='profile' />
+    <h2>{userId}</h2>
+  </div>
+);
+interface IProps {
+  handleFlip: (e: React.MouseEvent) => void;
+  handleCheckIn: (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
+  handleCheckOut: () => Promise<void>;
+}
 
-const ProfileCard: React.FC<IProps> = ({ handleFlip }) => {
-  const history = useHistory();
+const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckOut }) => {
   const {
-    user: { cardNum, state, id, profile },
-    setCardNum,
+    user: { state, id: userId, profile },
   } = useUser();
-
-  const handleCheckIn = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      try {
-        const { data: userData } = await getUserStatus();
-        if (userData.user.card) throw new Error("이미 체크인 되었습니다.");
-        const {
-          data: { result },
-        } = await postCheckIn(cardNum);
-        if (!result)
-          throw new Error(
-            "체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.",
-          );
-        history.push("/end");
-        return true;
-      } catch (err: any) {
-        let { message } = err;
-        if (err.response?.data?.message) message = err.response.data.message;
-        setCardNum({ cardNum: "" });
-        alert(message);
-        window.location.reload();
-      }
-      return false;
-    },
-    [cardNum, history, setCardNum],
-  );
-
-  const handleCheckOut = useCallback(async () => {
-    try {
-      const { data: userData } = await getUserStatus();
-      if (!userData.user.card) throw new Error("이미 체크아웃 되었습니다.");
-      const { data } = await postCheckOut();
-      if (!data) throw new Error("무언가 잘못되었습니다.");
-
-      history.push("/end");
-    } catch (err: any) {
-      let message = "";
-      if (err.response?.data?.code === 404) {
-        message = "이미 체크아웃 되었습니다.";
-      } else if (err.response?.data?.message) {
-        console.log(err.response);
-        message = err.response.data.message;
-      } else if (err.message) {
-        message = err.message;
-      } else {
-        message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
-      }
-      alert(message);
-      window.location.reload();
-    }
-  }, [history]);
 
   return (
     <div className={classes.profileCard}>
-      <div className={classes["util-box"]}>
-        <ListIcon onClick={handleFlip} />
-      </div>
-      <div className={classes["profile-wrapper"]}>
-        <img className={classes.profile} src={profile} alt='profile' />
-        <h2>{id}</h2>
-      </div>
-      {state === "checkOut" ? (
-        <CheckInForm handleCheckIn={handleCheckIn} />
-      ) : (
-        <CheckOutUi handleCheckOut={handleCheckOut} />
-      )}
+      <UtilBox handleFlip={handleFlip} />
+      <Profile profile={profile} userId={userId} />
+      {/* {state === "checkIn" && <hr className={classes.divider} />} */}
+      <hr className={classes.divider} />
+      {state === "checkOut" && <CheckInForm handleCheckIn={handleCheckIn} />}
+      {state === "checkIn" && <CheckOutUi handleCheckOut={handleCheckOut} />}
     </div>
   );
 };

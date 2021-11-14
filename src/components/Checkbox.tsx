@@ -1,13 +1,25 @@
 import React from "react";
 import classes from "../styles/Checkbox.module.css";
 
+interface CheckBox {
+  id: number;
+  text: string;
+  checked: boolean;
+}
+
 interface IProps {
   id: number;
   text: string;
   isChecked: boolean;
   setCheckStatus: React.Dispatch<React.SetStateAction<CheckBox[]>>;
 }
-
+/** ***************************************************************
+ ******************************************************************
+ ******************************************************************
+ ***************************안쓰는 컴포넌트****************************
+ ******************************************************************
+ ******************************************************************
+ **************************************************************** */
 const Checkbox = (props: IProps) => {
   const { id, text, isChecked, setCheckStatus } = props;
 

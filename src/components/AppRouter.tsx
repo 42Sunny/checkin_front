@@ -16,7 +16,6 @@ const AppRouter = () => {
       <AuthRoute path='/end' exact component={EndPage} />
       <Route path='/admin/log' exact component={CheckInLog} />
       <Route path='/admin/setting' exact component={CheckInSetting} />
-      <Redirect from='/submit' to='/checkin' />
       <Redirect from='/admin' to='/admin/log' />
       <AuthRoute component={NotFoundPage} />
     </Switch>

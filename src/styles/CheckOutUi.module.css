@@ -1,23 +1,13 @@
-.divider {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  width: 90%;
-}
-
-.checkin-info-wrapper {
-  text-align: center;
+.checkout-info-wrapper {
+  width: 100%;
+  height: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem;
+  align-items: center;
 }
-
-.title {
-  font-size: 1rem;
-}
-
-.checkinTime {
-  font-size: 1.5rem;
-  margin: 0.5rem;
+.checkout-info-wrapper > * {
+  margin-top: 1rem;
 }
 
 .cardNum {
