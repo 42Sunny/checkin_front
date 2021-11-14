@@ -16,7 +16,7 @@ const useUser = () => {
   }, [dispatch]);
 
   const setUser = useCallback(
-    (param: User) => {
+    (param: Omit<User, "isAdmin" | "isLogin">) => {
       dispatch(userActions.setUser(param));
     },
     [dispatch],

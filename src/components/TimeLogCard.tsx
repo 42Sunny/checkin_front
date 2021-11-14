@@ -1,10 +1,8 @@
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
-import { getDailyUsage } from "../api/api";
-import useUser from "../utils/hooks/useUser";
-
 import classes from "../styles/TimeLogCard.module.css";
+import useUser from "../utils/hooks/useUser";
 
 interface HeaderProps {
   checkinTime: string;
@@ -24,19 +22,20 @@ const UtilBox: React.FC<UtilBoxProps> = ({ handleFlip }) => (
   </div>
 );
 
-interface LogDataListProps {
-  logs: Log[];
-}
-
 interface LogDataProps {
   log: Log;
 }
+
 const LogData: React.FC<LogDataProps> = ({ log: { date, seconds } }) => (
   <li className={classes["log-data"]}>
     <time dateTime={date}>{date}</time>
     <div>{moment.utc(+seconds * 1000).format("HH:mm:ss")}</div>
   </li>
 );
+
+interface LogDataListProps {
+  logs: Log[];
+}
 
 const LogDataList: React.FC<LogDataListProps> = ({ logs }) => (
   <>
@@ -57,45 +56,18 @@ const LogDataList: React.FC<LogDataListProps> = ({ logs }) => (
 );
 interface IProps {
   handleFlip: () => void;
+  logs: Log[];
 }
 
-const TimeLogCard: React.FC<IProps> = ({ handleFlip }) => {
-  const [logs, setLogs] = useState<Log[]>([]);
+const TimeLogCard: React.FC<IProps> = ({ handleFlip, logs }) => {
   const {
     user: { checkinAt },
   } = useUser();
-
-  let checkinTime = "";
-  if (checkinAt)
-    checkinTime = moment(new Date(checkinAt)).tz("Asia/Seoul").format("YYYY-MM-DD HH:mm");
-
-  const getLogs = async () => {
-    try {
-      const today = new Date();
-      const from = moment(new Date(today.getFullYear(), today.getMonth(), 1))
-        .tz("Asia/Seoul")
-        .format("YYYY-MM-DD HH:mm:ss");
-      const to = moment(new Date(today.getFullYear(), today.getMonth() + 1, 1))
-        .tz("Asia/Seoul")
-        .format("YYYY-MM-DD HH:mm:ss");
-
-      const response = await getDailyUsage(from, to);
-      if (response.data.list) {
-        const logData = response.data.list;
-        setLogs(logData.reverse());
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [checkinTime, setCheckinTime] = useState("");
 
   useEffect(() => {
-    getLogs();
-
-    return () => {
-      setLogs([]);
-    };
-  }, []);
+    if (checkinAt) setCheckinTime(moment(new Date(checkinAt)).format("YYYY-MM-DD HH:mm"));
+  }, [checkinAt]);
 
   return (
     <div className={classes["time-log-wrapper"]}>

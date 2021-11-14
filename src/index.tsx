@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-
+import moment from "moment";
 import App from "./App";
 import configureStore from "./redux/configureStore";
-
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
+moment.tz.setDefault("Asia/Seoul");
 ReactDOM.render(
   <Provider store={configureStore}>
     <BrowserRouter>
