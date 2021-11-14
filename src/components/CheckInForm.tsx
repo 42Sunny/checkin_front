@@ -15,21 +15,19 @@ interface CardInputProps {
   handleCardNumberChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const CardInput: React.FC<CardInputProps> = ({ cardNum, handleCardNumberChange }) => {
-  return (
-    <div className={classes["cardNumber-wrapper"]}>
-      <input
-        className={classes.cardNumber}
-        type='number'
-        min={1}
-        value={cardNum}
-        inputMode='numeric' /* 숫자형 키패드 */
-        placeholder='카드 번호'
-        onChange={handleCardNumberChange}
-      />
-    </div>
-  );
-};
+const CardInput: React.FC<CardInputProps> = ({ cardNum, handleCardNumberChange }) => (
+  <div className={classes["cardNumber-wrapper"]}>
+    <input
+      className={classes.cardNumber}
+      type='number'
+      min={1}
+      value={cardNum}
+      inputMode='numeric' /* 숫자형 키패드 */
+      placeholder='카드 번호'
+      onChange={handleCardNumberChange}
+    />
+  </div>
+);
 
 interface CheckListProps {
   checkAll: boolean;
