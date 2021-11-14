@@ -10,7 +10,7 @@ const SET_CARD_NUM = "user/SET_CARD_NUM";
 // action creators
 export const login = createAction(LOGIN)();
 export const logout = createAction(LOGOUT)();
-export const setUser = createAction(SET_USER)<User>();
+export const setUser = createAction(SET_USER)<Omit<User, "isLogin" | "isAdmin">>();
 export const setCardNum = createAction(SET_CARD_NUM)<{ cardNum: string }>();
 
 // type
@@ -42,16 +42,11 @@ const userReducer = (state = initialState, action: UserActions) => {
         ...state,
         isLogin: false,
       };
-    case SET_USER:
-      return {
-        ...state,
-        id: action.payload.id,
-        cardNum: action.payload.cardNum,
-        state: action.payload.state,
-        checkinAt: action.payload.checkinAt,
-        checkoutAt: action.payload.checkoutAt,
-        profile: action.payload.profile,
-      };
+
+    case SET_USER: {
+      const { cardNum, checkinAt, checkoutAt, id, profile, state: userState } = action.payload;
+      return { ...state, id, cardNum, state: userState, checkinAt, checkoutAt, profile };
+    }
     case SET_CARD_NUM:
       return {
         ...state,

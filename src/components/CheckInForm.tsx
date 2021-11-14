@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import classes from "../styles/CheckInForm.module.css";
-import useUser from "../utils/hooks/useUser";
 import Button from "./Button";
 import List from "./List";
 
@@ -56,7 +55,7 @@ const CheckList: React.FC<CheckListProps> = ({ checkAll, handleCheckAll }) => (
 );
 
 interface IProps {
-  handleCheckIn: (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
+  handleCheckIn: (cardNum: string) => (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
 }
 
 // const waitingNotice = [
@@ -64,41 +63,32 @@ interface IProps {
 // ];
 
 const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
-  const {
-    user: { cardNum },
-    setCardNum,
-  } = useUser();
-
+  const [cardNum, setCardNum] = useState("");
   const [checkAll, setCheckAll] = useState(false);
   const [readySubmit, setReadySubmit] = useState(false);
 
   const handleCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    setCheckAll(isChecked);
+    setCheckAll(e.target.checked);
   };
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCardNum({ cardNum: e.target.value });
+    setCardNum(e.target.value);
   };
 
   const checkSubmitCondition = () => {
-    if (cardNum && checkAll) {
-      setReadySubmit(true);
-    } else {
-      setReadySubmit(false);
-    }
+    if (cardNum && checkAll) setReadySubmit(true);
+    else setReadySubmit(false);
   };
 
   useEffect(() => {
     checkSubmitCondition();
-
     return () => {
       setReadySubmit(false);
     };
   });
 
   return (
-    <form className={classes.form} onSubmit={handleCheckIn}>
+    <form className={classes.form} onSubmit={handleCheckIn(cardNum)}>
       <CheckList checkAll={checkAll} handleCheckAll={handleCheckAll} />
       <CardInput cardNum={cardNum} handleCardNumberChange={handleCardNumberChange} />
       <Button type='submit' className={classes.submitBtn} text='CHECK IN' disabled={!readySubmit} />

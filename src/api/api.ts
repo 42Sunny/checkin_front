@@ -20,7 +20,7 @@ interface GetUserStatus {
         log_id: number;
         checkin_at: string | null;
         checkout_at: string | null;
-        profile_image_url: string | null;
+        profile_image_url: string;
       };
       cluster: {
         gaepo: number;
@@ -90,7 +90,7 @@ export const getUsageList = async (from: string, to: string) => {
 };
 
 interface GetDailyUsage {
-  (from: string, to: string): Promise<AxiosResponse<{ list: Usage[] }>>;
+  (from: string, to: string): Promise<AxiosResponse<{ list: Log[] }>>;
 }
 
 export const getDailyUsage: GetDailyUsage = async (from: string, to: string) => {

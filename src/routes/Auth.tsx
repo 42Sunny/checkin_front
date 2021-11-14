@@ -16,7 +16,10 @@ const Auth: React.FC<IProps> = ({ component: Component, location, ...restProps }
       render={(props) => {
         // 일단 어드민이면 통과시킴
         if (location?.pathname.startsWith("/admin")) return <Component {...props} />;
-        if (!isLogin) history.push("/");
+        if (!isLogin) {
+          history.push("/");
+          return null;
+        }
         return <Component {...props} />;
       }}
     />

@@ -23,7 +23,7 @@ interface Status {
   gaepo: number;
 }
 
-interface Usage {
+interface Log {
   login: string;
   date: string;
   seconds: string;
