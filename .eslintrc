@@ -10,9 +10,12 @@
     "import/prefer-default-export": "warn",
     "react/button-has-type": "off",
     "no-alert": "off",
-    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-explicit-any": "off", 
+    // 에러타입 임시적으로 any씀 logger도입하기 전까지 유지
     "camelcase": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "react/require-default-props": "off",
+    "react/prop-type": "off"
   },
   "ignorePatterns": ["src/admin/**/*", "src/checkin-admin/**/*"]
 }
