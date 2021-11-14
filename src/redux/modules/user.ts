@@ -17,8 +17,8 @@ export const setCardNum = createAction(SET_CARD_NUM)<{ cardNum: string }>();
 const actions = { setCardNum, setUser, login, logout };
 type UserActions = ActionType<typeof actions>;
 
-// initalState
-const initalState: User = {
+// initialState
+const initialState: User = {
   isLogin: false,
   id: "",
   cardNum: "",
@@ -30,7 +30,7 @@ const initalState: User = {
 };
 
 // reducer
-const userReducer = (state = initalState, action: UserActions) => {
+const userReducer = (state = initialState, action: UserActions) => {
   switch (action.type) {
     case LOGIN:
       return {
