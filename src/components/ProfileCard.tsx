@@ -5,6 +5,24 @@ import useUser from "../utils/hooks/useUser";
 import CheckInForm from "./CheckInForm";
 import CheckOutUi from "./CheckOutUi";
 
+interface UtilBoxProps {
+  handleFlip: (e: React.MouseEvent) => void;
+}
+const UtilBox: React.FC<UtilBoxProps> = ({ handleFlip }) => (
+  <div className={classes["util-box"]}>
+    <ListIcon onClick={handleFlip} />
+  </div>
+);
+interface ProfileProps {
+  profile: string;
+  userId: string;
+}
+const Profile: React.FC<ProfileProps> = ({ profile, userId }) => (
+  <div className={classes["profile-wrapper"]}>
+    <img className={classes.profile} src={profile} alt='profile' />
+    <h2>{userId}</h2>
+  </div>
+);
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
   handleCheckIn: (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
@@ -13,18 +31,14 @@ interface IProps {
 
 const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckOut }) => {
   const {
-    user: { state, id, profile },
+    user: { state, id: userId, profile },
   } = useUser();
 
   return (
     <div className={classes.profileCard}>
-      <div className={classes["util-box"]}>
-        <ListIcon onClick={handleFlip} />
-      </div>
-      <div className={classes["profile-wrapper"]}>
-        <img className={classes.profile} src={profile} alt='profile' />
-        <h2>{id}</h2>
-      </div>
+      <UtilBox handleFlip={handleFlip} />
+      <Profile profile={profile} userId={userId} />
+      <hr className={classes.divider} />
       {state === "checkOut" && <CheckInForm handleCheckIn={handleCheckIn} />}
       {state === "checkIn" && <CheckOutUi handleCheckOut={handleCheckOut} />}
     </div>

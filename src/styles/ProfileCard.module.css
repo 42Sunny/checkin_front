@@ -8,7 +8,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items: center;
   transform: rotateY(0deg);
   backface-visibility: hidden;
@@ -17,7 +16,11 @@
 }
 
 .profile-wrapper {
-  text-align: center;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .profile {
@@ -27,6 +30,7 @@
   max-height: 200px;
   width: 30vw;
   height: 30vw;
+  margin-bottom: 1rem;
 }
 
 .util-box {
@@ -34,4 +38,9 @@
   top: 0;
   right: 0;
   padding: 1rem;
+}
+
+.divider {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
