@@ -28,9 +28,3 @@ interface Usage {
   date: string;
   seconds: string;
 }
-
-interface CheckBox {
-  id: number;
-  text: string;
-  checked: boolean;
-}
