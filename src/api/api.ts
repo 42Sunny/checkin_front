@@ -56,7 +56,7 @@ export const postCheckOut: PostCheckOut = () => {
 };
 
 interface GetConfig {
-  (date: string): Promise<
+  (): Promise<
     AxiosResponse<{
       begin_at: string | null;
       checkin_at: string | null;
@@ -74,8 +74,8 @@ interface GetConfig {
     }>
   >;
 }
-export const getConfig: GetConfig = (date) => {
-  return instance.get(`/config`, { params: { date } });
+export const getConfig: GetConfig = () => {
+  return instance.get(`/config`);
 };
 interface GetUsingCard {
   (): Promise<AxiosResponse<{ gaepo: number; seocho: number }>>;

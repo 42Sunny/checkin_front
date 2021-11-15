@@ -13,8 +13,7 @@ function App() {
 
   const getConfigByDate = useCallback(async () => {
     try {
-      const today = new Date();
-      const getConfigRes = await getConfig(today.toISOString().slice(0, 10));
+      const getConfigRes = await getConfig();
       const {
         seocho: seochoLimitation,
         gaepo: gaepoLimitation,
