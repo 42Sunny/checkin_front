@@ -1,6 +1,5 @@
 .slider-wrapper{
   width: 150px;
-  position: relative;
 }
 
 .slider {
@@ -22,13 +21,12 @@
   background-size: contain;
   border-radius: 50%;
   cursor: pointer;
-  z-index: 100;
 }
 
 .slider-backgroundText {
   margin-left: 20px;
   position: absolute;
-  top: 50%;
+  top: 85.7%;
   left: 50%;
   transform: translate(-50%, -50%);
   opacity: 0.5;
