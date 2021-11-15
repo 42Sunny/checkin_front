@@ -1,5 +1,6 @@
 import ListIcon from "@mui/icons-material/List";
 import React from "react";
+import { Backdrop, CircularProgress } from "@mui/material";
 import classes from "../styles/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInForm from "./CheckInForm";
@@ -27,19 +28,27 @@ interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
   handleCheckIn: (cardNum: string) => (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
   handleCheckOut: () => Promise<void>;
+  isLoading: boolean;
 }
 
-const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckOut }) => {
+const ProfileCard: React.FC<IProps> = ({
+  handleFlip,
+  handleCheckIn,
+  handleCheckOut,
+  isLoading,
+}) => {
   const {
     user: { state, id: userId, profile },
   } = useUser();
-
   return (
     <div className={classes.profileCard}>
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
       {/* {state === "checkIn" && <hr className={classes.divider} />} */}
       <hr className={classes.divider} />
+      <Backdrop open={isLoading}>
+        <CircularProgress size={50} color='inherit' />
+      </Backdrop>
       {state === "checkOut" ? (
         <CheckInForm handleCheckIn={handleCheckIn} />
       ) : (

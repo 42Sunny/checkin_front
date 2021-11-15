@@ -16,8 +16,10 @@ const CheckInPage = () => {
   const [logs, setLogs] = useState<Log[]>([]);
   const { setUser, setCardNum, logout } = useUser();
   const { setCurrentUserCount } = useCluster();
+  const [isLoading, setIsLoading] = useState(true);
 
   const getUserData = useCallback(async () => {
+    setIsLoading(true);
     try {
       const getUserStatusRes = await getUserStatus();
       const { user, cluster } = getUserStatusRes.data;
@@ -33,6 +35,8 @@ const CheckInPage = () => {
       console.log(err);
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
       logout();
+    } finally {
+      setIsLoading(false);
     }
   }, [logout, setCurrentUserCount, setUser]);
 
@@ -63,7 +67,7 @@ const CheckInPage = () => {
   const handleCheckIn = useCallback(
     (cardNum: string) => async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-
+      setIsLoading(true);
       try {
         const { data: userData } = await getUserStatus();
         if (userData.user.card) throw new Error("이미 체크인 되었습니다.");
@@ -80,6 +84,8 @@ const CheckInPage = () => {
         message = err?.response?.data?.message || err.message || message;
         alert(message);
         window.location.reload();
+      } finally {
+        setIsLoading(false);
       }
       return false;
     },
@@ -87,6 +93,7 @@ const CheckInPage = () => {
   );
 
   const handleCheckOut = useCallback(async () => {
+    setIsLoading(true);
     try {
       const { data: userData } = await getUserStatus();
       if (!userData.user.card) throw new Error("이미 체크아웃 되었습니다.");
@@ -96,16 +103,20 @@ const CheckInPage = () => {
       history.push("/end");
     } catch (err: any) {
       let message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
-      message = message || err.message || err?.response?.data?.message;
       message = err?.response?.data?.message || err.message || message;
       alert(message);
       window.location.reload();
+    } finally {
+      setIsLoading(false);
     }
   }, [history]);
 
   useEffect(() => {
     getUserData();
     getLogs();
+    return () => {
+      setIsLoading(false);
+    };
   }, [getUserData, getLogs]);
 
   return (
@@ -115,12 +126,15 @@ const CheckInPage = () => {
         ref={checkinCardWrapper}
         className={`${classes["card-wrapper"]} ${!isCardFlipped ? classes.front : classes.back}`}
       >
-        <ProfileCard
-          handleFlip={handleFlip}
-          handleCheckIn={handleCheckIn}
-          handleCheckOut={handleCheckOut}
-        />
-        <TimeLogCard logs={logs} handleFlip={handleFlip} />
+        <>
+          <ProfileCard
+            handleFlip={handleFlip}
+            handleCheckIn={handleCheckIn}
+            handleCheckOut={handleCheckOut}
+            isLoading={isLoading}
+          />
+          <TimeLogCard logs={logs} handleFlip={handleFlip} />
+        </>
       </div>
     </div>
   );
