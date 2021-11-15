@@ -77,7 +77,7 @@ const CheckInPage = () => {
       } catch (err: any) {
         let message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
         setCardNum({ cardNum: "" });
-        message = message || err.message || err?.response?.data?.message;
+        message = err?.response?.data?.message || err.message || message;
         alert(message);
         window.location.reload();
       }
@@ -97,6 +97,7 @@ const CheckInPage = () => {
     } catch (err: any) {
       let message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
       message = message || err.message || err?.response?.data?.message;
+      message = err?.response?.data?.message || err.message || message;
       alert(message);
       window.location.reload();
     }
