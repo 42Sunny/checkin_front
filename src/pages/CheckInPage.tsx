@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
+import * as Sentry from "@sentry/react";
 import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/api";
 import ProfileCard from "../components/ProfileCard";
 import StatusBoard from "../components/StatusBoard";
@@ -37,11 +38,13 @@ const CheckInPage = () => {
         checkoutAt,
         profile: profile_image_url,
       });
+      Sentry.setUser({ username: login });
       setCurrentUserCount({ gaepo, seocho });
     } catch (err) {
       console.log(err);
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
       logout();
+      throw err;
     } finally {
       setIsLoading(false);
     }
@@ -64,6 +67,7 @@ const CheckInPage = () => {
     } catch (err) {
       setLogs([]);
       console.log(err);
+      throw err;
     }
   }, []);
 
@@ -90,7 +94,7 @@ const CheckInPage = () => {
         setCardNum({ cardNum: "" });
         message = err?.response?.data?.message || err.message || message;
         alert(message);
-        window.location.reload();
+        throw err;
       } finally {
         setIsLoading(false);
       }
@@ -106,13 +110,13 @@ const CheckInPage = () => {
       if (!userData.user.card) throw new Error("이미 체크아웃 되었습니다.");
       const { data } = await postCheckOut();
       if (!data) throw new Error("무언가 잘못되었습니다.");
-
       history.push("/end");
     } catch (err: any) {
       let message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
       message = err?.response?.data?.message || err.message || message;
       alert(message);
       window.location.reload();
+      throw err;
     } finally {
       setIsLoading(false);
     }

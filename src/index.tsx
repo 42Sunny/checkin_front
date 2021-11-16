@@ -1,19 +1,39 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import moment from "moment";
+import { Integrations } from "@sentry/tracing";
+import * as Sentry from "@sentry/react";
 import App from "./App";
 import configureStore from "./redux/configureStore";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 
+const history = createBrowserHistory();
+if (process.env.NODE_ENV === "production") {
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    integrations: [
+      new Integrations.BrowserTracing({
+        routingInstrumentation: Sentry.reactRouterV5Instrumentation(history),
+      }),
+    ],
+    release: process.env.REACT_APP_SENTRY_RELEASE,
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 0.2,
+  });
+}
+
 moment.tz.setDefault("Asia/Seoul");
 ReactDOM.render(
   <Provider store={configureStore}>
-    <BrowserRouter>
+    <Router history={history}>
       <App />
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById("root"),
 );

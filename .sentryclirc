@@ -1,0 +1,6 @@
+[defaults]
+project=42checkin
+org=42checkin
+
+[auth]
+token=f91efd6fa3624c4f8b4372c8e8e004780dfb2e0b8457475bac1b8ab462a53536

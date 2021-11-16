@@ -31,7 +31,9 @@ function App() {
         seocho,
       });
     } catch (err) {
+      // TODO: 에러처리
       console.log(err);
+      throw err;
     }
   }, [setCluster]);
 
