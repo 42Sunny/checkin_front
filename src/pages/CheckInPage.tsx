@@ -28,8 +28,15 @@ const CheckInPage = () => {
       const { card, login, profile_image_url, state } = user;
       const { checkin_at: checkinAt, checkout_at: checkoutAt } = user;
       const cardNum = card !== null ? card : "";
-
-      setUser({ state, id: login, cardNum, checkinAt, checkoutAt, profile: profile_image_url });
+      const userState = state || "checkOut";
+      setUser({
+        state: userState,
+        id: login,
+        cardNum,
+        checkinAt,
+        checkoutAt,
+        profile: profile_image_url,
+      });
       setCurrentUserCount({ gaepo, seocho });
     } catch (err) {
       console.log(err);
