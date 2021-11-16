@@ -42,13 +42,13 @@ const ProfileCard: React.FC<IProps> = ({
   } = useUser();
   return (
     <div className={classes.profileCard}>
+      <Backdrop style={{ zIndex: 1 }} open={isLoading}>
+        {isLoading && <CircularProgress size={50} color='inherit' />}
+      </Backdrop>
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
       {/* {state === "checkIn" && <hr className={classes.divider} />} */}
       <hr className={classes.divider} />
-      <Backdrop open={isLoading}>
-        <CircularProgress size={50} color='inherit' />
-      </Backdrop>
       {state === "checkIn" ? (
         <CheckOutUi handleCheckOut={handleCheckOut} />
       ) : (
