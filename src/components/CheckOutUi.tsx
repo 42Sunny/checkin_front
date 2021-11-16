@@ -10,7 +10,7 @@ interface CardNumberProps {
 const CardNumber: React.FC<CardNumberProps> = ({ cardNum }) => (
   <>
     <p>카드 번호</p>
-    <p className={classes.cardNum}>1{cardNum}</p>
+    <p className={classes.cardNum}>{cardNum}</p>
   </>
 );
 interface IProps {
