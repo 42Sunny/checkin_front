@@ -49,10 +49,10 @@ const ProfileCard: React.FC<IProps> = ({
       <Backdrop open={isLoading}>
         <CircularProgress size={50} color='inherit' />
       </Backdrop>
-      {state === "checkOut" ? (
-        <CheckInForm handleCheckIn={handleCheckIn} />
-      ) : (
+      {state === "checkIn" ? (
         <CheckOutUi handleCheckOut={handleCheckOut} />
+      ) : (
+        <CheckInForm handleCheckIn={handleCheckIn} />
       )}
     </div>
   );
