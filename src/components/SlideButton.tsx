@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import classes from "../styles/SlideButton.module.css";
 
 interface IProps {
@@ -9,6 +9,7 @@ interface IProps {
 const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
   const slider = useRef<HTMLInputElement>(null);
   const sliderText = useRef<HTMLParagraphElement>(null);
+  const [isResetted, setIsResetted] = useState(false);
 
   const handleSliderChange = (
     e:
@@ -25,8 +26,9 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
   ) => {
     if (!(slider.current && sliderText.current)) return;
     const currentValue = parseInt(e.currentTarget.value, 10);
-    if (currentValue < 80) setValue(0);
-    else setValue(100);
+    if (currentValue < 80) {
+      setIsResetted(true);
+    } else setValue(100);
   };
 
   useLayoutEffect(() => {
@@ -39,20 +41,26 @@ const SlideButton: React.FC<IProps> = ({ value, setValue }) => {
     else slider.current.style.background = "";
   }, [value]);
 
+  useEffect(() => {
+    if (isResetted) {
+      setValue(0);
+      setIsResetted(false);
+    }
+  }, [isResetted, setValue, value]);
+
   return (
     <>
       <div className={classes["slider-wrapper"]}>
         <input
           onMouseUp={handleSliderTouchEnd}
           onTouchEnd={handleSliderTouchEnd}
-          onMouseMove={handleSliderChange}
-          onTouchMove={handleSliderChange}
           ref={slider}
           type='range'
           value={value}
           min={1}
           max={100}
-          onChange={handleSliderChange}
+          onInput={handleSliderChange}
+          // onChange={handleSliderChange}
           className={classes.slider}
         />
         <p ref={sliderText} className={classes["slider-backgroundText"]}>
