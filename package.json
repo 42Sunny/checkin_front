@@ -57,6 +57,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); react-scripts build && node scripts/sentry.js)",
+    "test_release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); CI=false && dotenv -e .env.test react-scripts build && node scripts/sentry.js)",
     "serve": "serve -s build -p 3001"
   },
   "eslintConfig": {

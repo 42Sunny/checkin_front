@@ -3,18 +3,14 @@ pipelines:
   branches:
     develop:
       - step:
-          name: Install & Build
-          deployment: develop
+          name: Deploy to Develop
+          deployment: Develop
           caches:
             - node
           script:
             - npm install
-            - export REACT_APP_API_URL=$REACT_APP_API_URL
-            - export REACT_APP_VERSION=$REACT_APP_VERSION
-            - export REACT_APP_AUTH_KEY=$REACT_APP_AUTH_KEY
-            - export REACT_APP_COOKIE_DOMAIN=$REACT_APP_COOKIE_DOMAIN
-            - export REACT_APP_X_42CADET_AUTH=$REACT_APP_X_42CADET_AUTH
-            - REACT_APP_ENVIRONMENT=develop npm run test_build
+
+            - REACT_APP_ENVIRONMENT=develop npm run test_release
           artifacts:
             - build/**
       - step:
