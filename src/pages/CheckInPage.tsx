@@ -1,7 +1,6 @@
 import moment from "moment";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import * as Sentry from "@sentry/react";
 import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/api";
 import ProfileCard from "../components/ProfileCard";
 import StatusBoard from "../components/StatusBoard";
@@ -38,7 +37,6 @@ const CheckInPage = () => {
         checkoutAt,
         profile: profile_image_url,
       });
-      Sentry.setUser({ username: login });
       setCurrentUserCount({ gaepo, seocho });
     } catch (err) {
       console.log(err);
