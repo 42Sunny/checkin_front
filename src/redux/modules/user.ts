@@ -1,6 +1,6 @@
 import { createAction, ActionType } from "typesafe-actions";
+import * as Sentry from "@sentry/react";
 import { DEFAULT_PROFILE } from "../../utils/utils";
-
 // actions
 const LOGIN = "user/LOGIN";
 const LOGOUT = "user/LOGOUT";
@@ -45,6 +45,7 @@ const userReducer = (state = initialState, action: UserActions) => {
 
     case SET_USER: {
       const { cardNum, checkinAt, checkoutAt, id, profile, state: userState } = action.payload;
+      Sentry.setUser({ username: id });
       return { ...state, id, cardNum, state: userState, checkinAt, checkoutAt, profile };
     }
     case SET_CARD_NUM:
