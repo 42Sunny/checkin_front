@@ -1,21 +1,18 @@
 import React, { useEffect } from "react";
-import { useSelector, shallowEqual } from "react-redux";
 import { useHistory } from "react-router-dom";
-import StatusBoard from "../components/StatusBoard";
-// import StatusChart from '../components/StatusChart';
 import Button from "../components/Button";
-
+import ClusterStatusChart from "../components/ClusterStatusChart";
+import MainHeader from "../components/MainHeader";
+import MainNotice from "../components/MainNotice";
 import classes from "../styles/LandingPage.module.css";
-import { RootState } from "../redux/modules";
+import useUser from "../utils/hooks/useUser";
 
 function LandingPage() {
   const history = useHistory();
-  const { isLogin } = useSelector(
-    (state: RootState) => ({
-      isLogin: state.userReducer.isLogin,
-    }),
-    shallowEqual,
-  );
+  const {
+    user: { isLogin },
+  } = useUser();
+
   const handleLogin = () => {
     window.location.href = `${
       process.env.REACT_APP_API_URL
@@ -28,10 +25,10 @@ function LandingPage() {
 
   return (
     <div className={classes["landing-wrapper"]}>
-      <h1>Check In Cluster</h1>
-      <StatusBoard />
-      {/* <StatusChart /> */}
-      <Button type='button' className={classes.submitBtn} handleClick={handleLogin} text='LOG IN' />
+      <MainHeader />
+      <ClusterStatusChart />
+      <MainNotice />
+      <Button type='button' onClick={handleLogin} text='LOG IN' />
     </div>
   );
 }

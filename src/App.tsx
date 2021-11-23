@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from "react";
 import { getConfig, getUsingCard } from "./api/api";
-import "./App.css";
 import AppRouter from "./components/AppRouter";
 import Notice from "./components/Notice";
 import useCluster from "./utils/hooks/useCluster";
@@ -46,24 +45,10 @@ function App() {
     getConfigByDate();
   }, [getConfigByDate, login, logout]);
 
-  useEffect(() => {
-    const vh = window.innerHeight * 0.01;
-    const handleResize = () => {
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <>
-      <div id='page-wrapper'>
-        <Notice />
-        <AppRouter />
-      </div>
+      <Notice />
+      <AppRouter />
       <footer id='version'>v{process.env.REACT_APP_VERSION}</footer>
     </>
   );

@@ -1,14 +1,20 @@
 import React from "react";
+import classes from "../styles/Button.module.css";
 
 interface IProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
-  handleClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   text: string;
   type: "button" | "submit" | "reset";
+  color?: string;
 }
 
-const Button: React.FC<IProps> = ({ text, type, handleClick, ...rest }) => {
+const Button: React.FC<IProps> = ({ color = "green", text, type, ...rest }) => {
   return (
-    <button {...rest} type={type} onClick={handleClick}>
+    <button
+      {...rest}
+      className={`${classes.button} ${classes[`${color}`]}`}
+      color={color}
+      type={type}
+    >
       {text}
     </button>
   );

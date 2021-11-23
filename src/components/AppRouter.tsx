@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
-import LandingPage from "../pages/LandingPage";
+import HomePage from "../pages/HomePage";
 import CheckInPage from "../pages/CheckInPage";
 import EndPage from "../pages/EndPage";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -11,7 +11,7 @@ import AuthRoute from "../routes/Auth";
 const AppRouter = () => {
   return (
     <Switch>
-      <Route path='/' exact component={LandingPage} />
+      <Route path='/' exact component={HomePage} />
       <AuthRoute path='/checkin' exact component={CheckInPage} />
       <AuthRoute path='/end' exact component={EndPage} />
       <Route path='/admin/log' exact component={CheckInLog} />

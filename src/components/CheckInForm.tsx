@@ -91,7 +91,7 @@ const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
     <form className={classes.form} onSubmit={handleCheckIn(cardNum)}>
       <CheckList checkAll={checkAll} handleCheckAll={handleCheckAll} />
       <CardInput cardNum={cardNum} handleCardNumberChange={handleCardNumberChange} />
-      <Button type='submit' className={classes.submitBtn} text='CHECK IN' disabled={!readySubmit} />
+      <Button type='submit' text='CHECK IN' disabled={!readySubmit} />
     </form>
   );
 };
