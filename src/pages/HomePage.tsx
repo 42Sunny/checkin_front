@@ -4,7 +4,6 @@ import Button from "../components/Button";
 import ClusterStatusChart from "../components/ClusterStatusChart";
 import MainHeader from "../components/MainHeader";
 import MainNotice from "../components/MainNotice";
-import classes from "../styles/LandingPage.module.css";
 import useUser from "../utils/hooks/useUser";
 
 function LandingPage() {
@@ -24,12 +23,12 @@ function LandingPage() {
   }, [history, isLogin]);
 
   return (
-    <div className={classes["landing-wrapper"]}>
+    <>
       <MainHeader />
       <ClusterStatusChart />
       <MainNotice />
       <Button type='button' onClick={handleLogin} text='LOG IN' />
-    </div>
+    </>
   );
 }
 

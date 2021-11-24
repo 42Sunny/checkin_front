@@ -10,7 +10,7 @@ const ClusterStatusChart = () => {
   const dataGaepo = {
     datasets: [
       {
-        data: [gaepo, gaepoLimitation - gaepo],
+        data: [gaepo, !gaepoLimitation ? 1 : gaepoLimitation - gaepo],
         backgroundColor: ["rgb(74, 226, 170)", "rgba(74, 226, 170, 0.2)"],
         hoverOffset: 4,
         borderWidth: 0,
@@ -22,7 +22,7 @@ const ClusterStatusChart = () => {
   const dataSeocho = {
     datasets: [
       {
-        data: [seocho, seochoLimitation - seocho],
+        data: [seocho, !seochoLimitation ? 1 : seochoLimitation - seocho],
         backgroundColor: ["rgb(88, 210, 231)", "rgba(88, 210, 231, 0.2)"],
         hoverOffset: 4,
         borderWidth: 0,

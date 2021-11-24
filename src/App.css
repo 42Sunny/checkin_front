@@ -1,3 +1,5 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
 :root {
   --white: rgb(255, 255, 255);
   --black: rgb(46, 47, 51);
@@ -12,17 +14,6 @@
   --darkgray: rgb(95, 96, 109);
   --snow: rgb(244, 244, 245);
   --darksnow: rgb(229, 229, 235);
-}
-
-@font-face {
-  font-family: "D2Coding";
-  src: url("./assets/fonts/D2Coding.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "D2Coding";
-  font-weight: bold;
-  src: url("./assets/fonts/D2CodingBold.ttf") format("truetype");
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -40,41 +31,52 @@ input[type="number"] {
 ::-webkit-scrollbar {
   display: none;
 }
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
+#root {
+  height: 100%;
+}
+
 html {
-  color: white;
-  background-color: rgb(45, 46, 51);
-  font-family: "D2Coding";
   height: 100%;
 }
 
 body {
   height: 100%;
-  font-family: "D2Coding";
+  color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(45, 46, 51);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+input,
+button {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Apple SD Gothic Neo", "Noto Sans CJK KR",
+    "Malgun Gothic", sans-serif;
+}
+
+.wrapper {
   display: flex;
   flex-direction: column;
-}
-#root {
-  flex: 1;
-}
-
-#version {
-  font-size: smaller;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.3);
-  margin-top: 1em;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 18px;
+  background-color: var(--black);
+  width: 100%;
+  min-width: 320px;
+  max-width: 480px;
+  height: 100%;
 }
 
-#version {
-  font-size: smaller;
-  text-align: center;
+.version {
   color: rgba(255, 255, 255, 0.3);
-  margin-top: 1em;
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 5%;
 }
