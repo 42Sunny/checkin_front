@@ -7,13 +7,12 @@ const useStyles = makeStyles(() => ({
   info: {
     background: "rgba(0, 0, 0, 0.5)",
     "& span": {
-      fontSize: "0.6rem",
+      fontSize: "0.8rem",
     },
   },
   title: {
     fontSize: "1rem",
     fontWeight: "bolder",
-    fontFamily: "D2Coding",
   },
 }));
 

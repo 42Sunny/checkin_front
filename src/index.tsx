@@ -9,7 +9,6 @@ import * as Sentry from "@sentry/react";
 import App from "./App";
 import configureStore from "./redux/configureStore";
 import reportWebVitals from "./reportWebVitals";
-import "./index.css";
 
 const history = createBrowserHistory();
 if (process.env.NODE_ENV === "production") {

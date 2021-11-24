@@ -1,7 +1,0 @@
-.landing-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 90vw;
-  max-width: 512px;
-  margin: 0 auto;
-}

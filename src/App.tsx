@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import { getConfig, getUsingCard } from "./api/api";
 import AppRouter from "./components/AppRouter";
-import Notice from "./components/Notice";
 import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";
 import { getCookieValue } from "./utils/utils";
+import "./App.css";
 
 function App() {
   const { setCluster } = useCluster();
@@ -46,11 +46,11 @@ function App() {
   }, [getConfigByDate, login, logout]);
 
   return (
-    <>
-      <Notice />
+    <main className='wrapper'>
+      {/* <Notice /> */}
       <AppRouter />
-      <footer id='version'>v{process.env.REACT_APP_VERSION}</footer>
-    </>
+      <footer className='version'>v{process.env.REACT_APP_VERSION}</footer>
+    </main>
   );
 }
 
