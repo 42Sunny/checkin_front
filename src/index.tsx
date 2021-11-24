@@ -10,7 +10,6 @@ import App from "./App";
 import configureStore from "./redux/configureStore";
 import reportWebVitals from "./reportWebVitals";
 
-
 const history = createBrowserHistory();
 if (process.env.NODE_ENV === "production") {
   Sentry.init({
