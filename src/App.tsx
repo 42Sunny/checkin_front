@@ -50,7 +50,7 @@ function App() {
     <main className='wrapper'>
       {/* <Notice /> */}
       <AppRouter />
-      <footer className='version'>version{process.env.REACT_APP_VERSION}</footer>
+      <footer className='version'>v{process.env.REACT_APP_VERSION}</footer>
     </main>
   );
 }
