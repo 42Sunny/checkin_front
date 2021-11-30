@@ -1,4 +1,4 @@
-const formatOfficeTime = ({ openAt, closeAt }: Pick<Cluster, "closeAt" | "openAt">) => {
+const formatOfficeHours = ({ openAt, closeAt }: Pick<Cluster, "closeAt" | "openAt">) => {
   const openTime = openAt || "";
   const closeTime = closeAt || "";
   if (openTime === "" && closeTime === "") return `00:00 ~ 24:00`;
@@ -7,4 +7,4 @@ const formatOfficeTime = ({ openAt, closeAt }: Pick<Cluster, "closeAt" | "openAt
   return `${openTime.slice(0, 5)} ~ ${closeTime.slice(0, 5)}`;
 };
 
-export { formatOfficeTime };
+export { formatOfficeHours };

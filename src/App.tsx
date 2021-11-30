@@ -5,7 +5,7 @@ import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";
 import { getCookieValue } from "./utils/utils";
 
-function App() {
+const App = () => {
   const { setCluster } = useCluster();
   const { login, logout } = useUser();
 
@@ -36,11 +36,8 @@ function App() {
   }, [setCluster]);
 
   useEffect(() => {
-    if (!getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) {
-      logout();
-    } else {
-      login();
-    }
+    if (!getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) logout();
+    else login();
     getConfigByDate();
   }, [getConfigByDate, login, logout]);
 
@@ -50,6 +47,6 @@ function App() {
       <footer className='footer'>v{process.env.REACT_APP_VERSION}</footer>
     </main>
   );
-}
+};
 
 export default App;

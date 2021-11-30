@@ -13,7 +13,7 @@
     "react/button-has-type":"off",
     // 에러타입 임시적으로 any씀 logger도입하기 전까지 유지
     "camelcase": "off",
-    "no-console": "off",
+    "no-console": "warn",
     "react/require-default-props": "off",
     "react/prop-type": "off"
   },

@@ -1,12 +1,9 @@
 import ListIcon from "@mui/icons-material/List";
-import React, { useEffect, useState } from "react";
-import { Backdrop, CircularProgress } from "@mui/material";
+import React from "react";
 import classes from "../styles/components/ProfileCard.module.css";
-import useUser from "../utils/hooks/useUser";
-import CheckInForm from "./CheckInForm";
-import CheckOutUi from "./CheckOutUi";
 import useCluster from "../utils/hooks/useCluster";
-import { formatOfficeTime } from "../utils/time";
+import useUser from "../utils/hooks/useUser";
+import Box from "./Box";
 
 interface UtilBoxProps {
   handleFlip: (e: React.MouseEvent) => void;
@@ -14,17 +11,6 @@ interface UtilBoxProps {
 const UtilBox: React.FC<UtilBoxProps> = ({ handleFlip }) => (
   <div className={classes["util-box"]}>
     <ListIcon onClick={handleFlip} />
-  </div>
-);
-
-interface OfficeHourBoxProps {
-  officeTime: string;
-}
-const OfficeHourBox: React.FC<OfficeHourBoxProps> = ({ officeTime }) => (
-  <div className={classes["opening-hour-box"]}>
-    {`클러스터 운영시간: ${officeTime}`}
-    <br />
-    인포데스크 점심시간 13:00 ~ 14:00
   </div>
 );
 
@@ -40,43 +26,20 @@ const Profile: React.FC<ProfileProps> = ({ profile, userId }) => (
 );
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
-  handleCheckIn: (cardNum: string) => (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
-  handleCheckOut: () => Promise<void>;
-  isLoading: boolean;
+  render: () => React.ReactElement;
 }
 
-const ProfileCard: React.FC<IProps> = ({
-  handleFlip,
-  handleCheckIn,
-  handleCheckOut,
-  isLoading,
-}) => {
+const ProfileCard: React.FC<IProps> = ({ handleFlip, render }) => {
   const {
-    user: { state, id: userId, profile },
+    user: { id: userId, profile },
   } = useUser();
-  const {
-    cluster: { openAt, closeAt },
-  } = useCluster();
-  const [officeTime, setOfficeTime] = useState("");
-
-  useEffect(() => {
-    setOfficeTime(formatOfficeTime({ openAt, closeAt }));
-  }, [closeAt, openAt]);
 
   return (
     <div className={classes.profileCard}>
-      <Backdrop style={{ zIndex: 1 }} open={isLoading}>
-        {isLoading && <CircularProgress size={50} color='inherit' />}
-      </Backdrop>
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
       <hr className={classes.divider} />
-      <OfficeHourBox officeTime={officeTime} />
-      {state === "checkIn" ? (
-        <CheckOutUi handleCheckOut={handleCheckOut} />
-      ) : (
-        <CheckInForm handleCheckIn={handleCheckIn} />
-      )}
+      {render()}
     </div>
   );
 };

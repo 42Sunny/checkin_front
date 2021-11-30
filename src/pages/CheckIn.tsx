@@ -1,45 +1,55 @@
+import { Backdrop, CircularProgress } from "@mui/material";
 import moment from "moment";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/api";
+import CheckInForm from "../components/CheckInForm";
+import CheckOutUi from "../components/CheckOutUi";
 import ClusterStatusBoard from "../components/ClusterStatusBoard";
 import ProfileCard from "../components/ProfileCard";
 import TimeLogCard from "../components/TimeLogCard";
 import classes from "../styles/pages/CheckInPage.module.css";
 import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
+import Box from "../components/Box";
 
 const CheckIn = () => {
-  const checkinCardWrapper = useRef<HTMLDivElement>(null);
+  const checkInCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
+  const {
+    user: { state: userState },
+  } = useUser();
+  const {
+    cluster: { officeHours },
+    setCurrentUserCount,
+  } = useCluster();
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
   const { setUser, setCardNum, logout } = useUser();
-  const { setCurrentUserCount } = useCluster();
   const [isLoading, setIsLoading] = useState(true);
+  const [checkInTime, setCheckInTime] = useState("");
 
   const getUserData = useCallback(async () => {
     setIsLoading(true);
     try {
       const getUserStatusRes = await getUserStatus();
-      const { user, cluster } = getUserStatusRes.data;
-      const { gaepo, seocho } = cluster;
-
-      const { card, login, profile_image_url, state } = user;
-      const { checkin_at: checkinAt, checkout_at: checkoutAt } = user;
+      const {
+        user: { card, login, profile_image_url, state, checkin_at, checkout_at },
+        cluster: { gaepo, seocho },
+      } = getUserStatusRes.data;
       const cardNum = card !== null ? card : "";
-      const userState = state || "checkOut";
+
+      if (checkin_at) setCheckInTime(moment(new Date(checkin_at)).format("YYYY-MM-DD HH:mm"));
       setUser({
-        state: userState,
+        state: state || "checkOut",
         id: login,
         cardNum,
-        checkinAt,
-        checkoutAt,
+        checkinAt: checkin_at,
+        checkoutAt: checkout_at,
         profile: profile_image_url,
       });
       setCurrentUserCount({ gaepo, seocho });
     } catch (err) {
-      console.log(err);
       document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
       logout();
       throw err;
@@ -70,7 +80,7 @@ const CheckIn = () => {
   }, []);
 
   const handleFlip = () => {
-    setIsCardFlipped((state) => !state);
+    setIsCardFlipped((prev) => !prev);
   };
 
   const handleCheckIn = useCallback(
@@ -92,11 +102,11 @@ const CheckIn = () => {
         setCardNum({ cardNum: "" });
         message = err?.response?.data?.message || err.message || message;
         alert(message);
+        window.location.reload();
         throw err;
       } finally {
         setIsLoading(false);
       }
-      return false;
     },
     [history, setCardNum],
   );
@@ -107,10 +117,14 @@ const CheckIn = () => {
       const { data: userData } = await getUserStatus();
       if (!userData.user.card) throw new Error("이미 체크아웃 되었습니다.");
       const { data } = await postCheckOut();
-      if (!data) throw new Error("무언가 잘못되었습니다.");
+      if (!data)
+        throw new Error(
+          "체크아웃이 정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.",
+        );
       history.push("/end");
     } catch (err: any) {
-      let message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
+      let message =
+        "체크아웃이 정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
       message = err?.response?.data?.message || err.message || message;
       alert(message);
       window.location.reload();
@@ -127,23 +141,38 @@ const CheckIn = () => {
       setIsLoading(false);
     };
   }, [getUserData, getLogs]);
-
   return (
     <>
+      <Backdrop style={{ zIndex: 1 }} open={isLoading}>
+        <CircularProgress size={50} color='inherit' />
+      </Backdrop>
       <ClusterStatusBoard />
       <div
-        ref={checkinCardWrapper}
+        ref={checkInCardWrapper}
         className={`${classes["card-wrapper"]} ${!isCardFlipped ? classes.front : classes.back}`}
       >
-        <>
-          <ProfileCard
-            handleFlip={handleFlip}
-            handleCheckIn={handleCheckIn}
-            handleCheckOut={handleCheckOut}
-            isLoading={isLoading}
-          />
-          <TimeLogCard logs={logs} handleFlip={handleFlip} />
-        </>
+        <ProfileCard
+          render={() =>
+            userState === "checkIn" ? (
+              <>
+                <Box>
+                  <p>체크인 시간:{checkInTime}</p>
+                </Box>
+                <CheckOutUi handleCheckOut={handleCheckOut} />
+              </>
+            ) : (
+              <>
+                <Box>
+                  <p> 클러스터 운영시간: {officeHours}</p>
+                  <p> 인포데스크 점심시간 13:00 ~ 14:00</p>
+                </Box>
+                <CheckInForm handleCheckIn={handleCheckIn} />
+              </>
+            )
+          }
+          handleFlip={handleFlip}
+        />
+        <TimeLogCard logs={logs} handleFlip={handleFlip} />
       </div>
     </>
   );

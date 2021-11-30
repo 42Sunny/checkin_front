@@ -22,8 +22,9 @@ const CardInput: React.FC<CardInputProps> = ({ cardNum, handleCardNumberChange }
       className={classes.cardNumber}
       type='number'
       min={1}
+      step={1}
       value={cardNum}
-      inputMode='numeric' /* 숫자형 키패드 */
+      inputMode='decimal' /* 숫자형 키패드 */
       placeholder='카드 번호'
       onChange={handleCardNumberChange}
     />

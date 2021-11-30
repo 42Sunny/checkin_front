@@ -8,7 +8,7 @@ const useCluster = () => {
   const cluster = useSelector((state: RootState) => state.clusterReducer);
 
   const setCluster = useCallback(
-    (param: Cluster) => {
+    (param: Omit<Cluster, "officeHours">) => {
       dispatch(clusterActions.setCluster(param));
     },
     [dispatch],
