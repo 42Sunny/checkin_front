@@ -18,6 +18,7 @@ jobs:
 
       - name: setup
         run: git remote add bitbucket https://sookang:${{secrets.BITBUCKET_PASSWORD}}@bitbucket.org/42seoul/checkin_front.git
-
+      - name: pull rebase
+        run: git pull --rebase bitbucket develop
       - name: push bitbucket
         run: git push bitbucket develop
