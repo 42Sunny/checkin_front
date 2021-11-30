@@ -4,7 +4,6 @@ import { formatOfficeHours } from "../../utils/time";
 // actions
 const SET_CLUSTER = "cluster/SET_CLUSTER";
 const SET_CURRENT_USER_COUNT = "cluster/SET_CURRENT_USER_COUNT";
-const SET_CLUSTER_OFFICE_HOUR = "cluster/SET_CLUSTER_OFFICE_HOUR";
 // action creators
 
 export const setCluster = createAction(SET_CLUSTER)<Omit<Cluster, "officeHours">>();

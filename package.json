@@ -4,7 +4,7 @@
   "private": true,
   "description": "해당 저장소는 42서울 본과정생들의 클러스터 체크인, 체크아웃을 위한 사이트의 클라이언트 프로젝트입니다.",
   "license": "MIT",
-  "homepage": "https://cluster.42seoul.io/checkin",
+  "homepage": "./",
   "repository": {
     "type": "git",
     "url": "git+https://bitbucket.org/42seoul/checkin_front.git"
@@ -30,12 +30,12 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "axios": "^0.21.1",
+    "chart.js": "^3.5.1",
     "classnames": "^2.3.1",
     "history": "^4.10.1",
     "http-proxy-middleware": "^0.19.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
-    "chart.js": "^3.5.1",
     "react": "^17.0.2",
     "react-chartjs-2": "^3.0.5",
     "react-dom": "^17.0.2",
@@ -56,19 +56,25 @@
     "dotenv-cli": "^4.0.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb-typescript-prettier": "^4.2.0",
+    "postcss-cli": "^9.0.2",
+    "postcss-custom-properties": "^12.0.0",
     "prettier": "2.4.1",
     "serve": "^13.0.2"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",
-    "build": "react-scripts build",
+    "build": "dotenv -e .env.production && react-scripts build",
+    "build:dev": "dotenv -e .env.development react-scripts build",
+    "build:local": "dotenv -e .env.development.local react-scripts build",
     "test_build": "CI=false && dotenv -e .env.test react-scripts build",
     "alpha_build": "dotenv -e .env.alpha react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); react-scripts build && node scripts/sentry.js)",
-    "test_release": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); CI=false && dotenv -e .env.test react-scripts build && node scripts/sentry.js)",
-    "serve": "serve -s build -p 3001"
+    "release:prod": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); && dotenv -e .env.production react-scripts build && node scripts/sentry.js)",
+    "release:dev": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); CI=false && dotenv -e .env.development react-scripts build && node scripts/sentry.js)",
+    "release:test": "(export REACT_APP_SENTRY_RELEASE=$(git rev-parse --short HEAD); CI=false && dotenv -e .env.test react-scripts build && node scripts/sentry.js)",
+    "serve": "serve -s build -p 3001",
+    "postbuild": "postcss --use postcss-custom-properties --replace build/**/*.css"
   },
   "eslintConfig": {
     "extends": [

@@ -3,6 +3,7 @@ import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
 import classes from "../styles/components/TimeLogCard.module.css";
 import useUser from "../utils/hooks/useUser";
+import { formatToGeneralTime } from "../utils/time";
 
 interface HeaderProps {
   checkinTime: string;
@@ -66,7 +67,7 @@ const TimeLogCard: React.FC<IProps> = ({ handleFlip, logs }) => {
   const [checkinTime, setCheckinTime] = useState("");
 
   useEffect(() => {
-    if (checkinAt) setCheckinTime(moment(new Date(checkinAt)).format("YYYY-MM-DD HH:mm"));
+    if (checkinAt) setCheckinTime(formatToGeneralTime(new Date(checkinAt)));
   }, [checkinAt]);
 
   return (

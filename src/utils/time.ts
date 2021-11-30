@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const formatOfficeHours = ({ openAt, closeAt }: Pick<Cluster, "closeAt" | "openAt">) => {
   const openTime = openAt || "";
   const closeTime = closeAt || "";
@@ -6,5 +8,8 @@ const formatOfficeHours = ({ openAt, closeAt }: Pick<Cluster, "closeAt" | "openA
   if (openTime === "") return `---- ~  ${closeTime.slice(0, 5)}`;
   return `${openTime.slice(0, 5)} ~ ${closeTime.slice(0, 5)}`;
 };
+const formatToGeneralTime = (time: Date) => {
+  return moment(new Date(time)).format("YYYY-MM-DD HH:mm");
+};
 
-export { formatOfficeHours };
+export { formatOfficeHours, formatToGeneralTime };

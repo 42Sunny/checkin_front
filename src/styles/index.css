@@ -1,9 +1,10 @@
 
+/* vendors */
+@import url("./vendors/normalize.css");
+
 /* abstracts  */
 @import url("./abstracts/variables.css");
 
-/* vendors */
-@import url("./vendors/normalize.css");
 
 /* base */
 @import url("./base/fonts.css");

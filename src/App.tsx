@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from "react";
 import { getConfig, getUsingCard } from "./api/api";
 import AppRouter from "./components/AppRouter";
+import { getCookieValue } from "./utils/cookie";
 import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";
-import { getCookieValue } from "./utils/utils";
 
 const App = () => {
   const { setCluster } = useCluster();
@@ -29,8 +29,7 @@ const App = () => {
         seocho,
       });
     } catch (err) {
-      // TODO: 에러처리
-      console.log(err);
+      window.location.reload();
       throw err;
     }
   }, [setCluster]);

@@ -1,9 +1,7 @@
 import ListIcon from "@mui/icons-material/List";
 import React from "react";
 import classes from "../styles/components/ProfileCard.module.css";
-import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
-import Box from "./Box";
 
 interface UtilBoxProps {
   handleFlip: (e: React.MouseEvent) => void;

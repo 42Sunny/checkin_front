@@ -1,5 +1,4 @@
 import { Backdrop, CircularProgress } from "@mui/material";
-import moment from "moment";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/api";
@@ -12,20 +11,25 @@ import classes from "../styles/pages/CheckInPage.module.css";
 import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
 import Box from "../components/Box";
+import { removeCookieValue } from "../utils/cookie";
+import { formatToGeneralTime } from "../utils/time";
 
 const CheckIn = () => {
   const checkInCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
   const {
     user: { state: userState },
+    setUser,
+    setCardNum,
+    logout,
   } = useUser();
   const {
     cluster: { officeHours },
     setCurrentUserCount,
   } = useCluster();
+
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
-  const { setUser, setCardNum, logout } = useUser();
   const [isLoading, setIsLoading] = useState(true);
   const [checkInTime, setCheckInTime] = useState("");
 
@@ -39,7 +43,7 @@ const CheckIn = () => {
       } = getUserStatusRes.data;
       const cardNum = card !== null ? card : "";
 
-      if (checkin_at) setCheckInTime(moment(new Date(checkin_at)).format("YYYY-MM-DD HH:mm"));
+      if (checkin_at) setCheckInTime(formatToGeneralTime(new Date(checkin_at)));
       setUser({
         state: state || "checkOut",
         id: login,
@@ -50,7 +54,8 @@ const CheckIn = () => {
       });
       setCurrentUserCount({ gaepo, seocho });
     } catch (err) {
-      document.cookie = `${process.env.REACT_APP_AUTH_KEY}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=${process.env.REACT_APP_COOKIE_DOMAIN}`;
+      alert("유저 정보가 이상합니다.\n 다시 로그인해주세요.");
+      removeCookieValue(process.env.REACT_APP_AUTH_KEY);
       logout();
       throw err;
     } finally {
@@ -61,11 +66,8 @@ const CheckIn = () => {
   const getLogs = useCallback(async () => {
     try {
       const today = new Date();
-      const momentFormat = "YYYY-MM-DD HH:mm:ss";
-      const from = moment(new Date(today.getFullYear(), today.getMonth(), 1)).format(momentFormat);
-      const to = moment(new Date(today.getFullYear(), today.getMonth() + 1, 0)).format(
-        momentFormat,
-      );
+      const from = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth(), 1));
+      const to = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth() + 1, 0));
 
       const response = await getDailyUsage(from, to);
       if (response.data?.list) {
@@ -74,7 +76,6 @@ const CheckIn = () => {
       }
     } catch (err) {
       setLogs([]);
-      console.log(err);
       throw err;
     }
   }, []);
