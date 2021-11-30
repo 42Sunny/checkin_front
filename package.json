@@ -1,7 +1,17 @@
 {
   "name": "42checkin",
-  "version": "2.2.1",
+  "version": "2.2.0",
   "private": true,
+  "description": "해당 저장소는 42서울 본과정생들의 클러스터 체크인, 체크아웃을 위한 사이트의 클라이언트 프로젝트입니다.",
+  "license": "MIT",
+  "homepage": "https://cluster.42seoul.io/checkin",
+  "repository": {
+    "type": "git",
+    "url": "git+https://bitbucket.org/42seoul/checkin_front.git"
+  },
+  "engines": {
+    "node": ">=16.3.0"
+  },
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
