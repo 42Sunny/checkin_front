@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useUser from "../utils/hooks/useUser";
 import SlideButton from "./SlideButton";
-import classes from "../styles/CheckOutUi.module.css";
+import classes from "../styles/components/CheckOutUi.module.css";
 
 interface CardNumberProps {
   cardNum: string;

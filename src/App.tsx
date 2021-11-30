@@ -4,7 +4,6 @@ import AppRouter from "./components/AppRouter";
 import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";
 import { getCookieValue } from "./utils/utils";
-import "./App.css";
 
 function App() {
   const { setCluster } = useCluster();
@@ -49,7 +48,7 @@ function App() {
     <main className='wrapper'>
       {/* <Notice /> */}
       <AppRouter />
-      <footer className='version'>v{process.env.REACT_APP_VERSION}</footer>
+      <footer className='footer'>v{process.env.REACT_APP_VERSION}</footer>
     </main>
   );
 }

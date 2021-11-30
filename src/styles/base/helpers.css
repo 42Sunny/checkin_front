@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 18px;
+  background-color: var(--black);
+  width: 100%;
+  min-width: 320px;
+  max-width: 480px;
+  height: 100%;
+}

@@ -19,7 +19,7 @@
   height: 40px;
   pointer-events: all;
   appearance: none;
-  background: url("../assets/42.png");
+  background: url("../../assets/42.png");
   background-size: contain;
   border-radius: 50%;
   cursor: pointer;
@@ -30,7 +30,7 @@
   height: 40px;
   pointer-events: all;
   appearance: none;
-  background: url("../assets/42.png");
+  background: url("../../assets/42.png");
   background-size: contain;
   border-radius: 50%;
   cursor: pointer;
