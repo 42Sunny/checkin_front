@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import classes from "../styles/pages/EndPage.module.css";
 
-const EndPage = () => {
+const End = () => {
   const history = useHistory();
 
   useEffect(() => {
     const timeOutId = setTimeout(() => history.push("/checkin"), 1000);
-
     return () => {
       clearTimeout(timeOutId);
     };
@@ -20,4 +19,4 @@ const EndPage = () => {
   );
 };
 
-export default EndPage;
+export default End;

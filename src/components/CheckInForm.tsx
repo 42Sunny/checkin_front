@@ -1,6 +1,8 @@
+import { Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import classes from "../styles/components/CheckInForm.module.css";
 import Button from "./Button";
+import Checkbox from "./Checkbox";
 import List from "./List";
 
 const checkLists = [
@@ -28,25 +30,9 @@ const CardInput: React.FC<CardInputProps> = ({ cardNum, handleCardNumberChange }
   </div>
 );
 
-interface CheckListProps {
-  checkAll: boolean;
-  handleCheckAll: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const CheckList: React.FC<CheckListProps> = ({ checkAll, handleCheckAll }) => (
-  <div className={classes["check-in-form-wrapper"]}>
-    <label htmlFor='allCheck' className={classes.allCheck}>
-      <input
-        id='allCheck'
-        type='checkbox'
-        checked={checkAll}
-        onChange={handleCheckAll}
-        className={classes.allCheckBox}
-      />
-      <span>클러스터 이용 약관에 모두 동의합니다.</span>
-      <span className={classes.asterisk}>*</span>
-    </label>
-    <ul className={classes["check-list-wrapper"]}>
+const CheckList: React.FC = () => (
+  <div className={classes["check-list-wrapper"]}>
+    <ul className={classes["check-list"]}>
       {checkLists.map((checkList) => (
         <List key={checkList} text={checkList} />
       ))}
@@ -58,17 +44,20 @@ interface IProps {
   handleCheckIn: (cardNum: string) => (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
 }
 
-// const waitingNotice = [
-//   " 입장 안내 알림을 받은 후로 10분 이내에 체크인을 완료하지 않을 시에 대기가 자동 취소됨을 확인합니다.",
-// ];
-
 const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
   const [cardNum, setCardNum] = useState("");
-  const [checkAll, setCheckAll] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [readySubmit, setReadySubmit] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
 
-  const handleCheckAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheckAll(e.target.checked);
+  const handleChecklistModalOpen = () => {
+    setIsOpened(true);
+  };
+  const handleChecklistModalClose = () => {
+    setIsOpened(false);
+  };
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
   };
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +65,7 @@ const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
   };
 
   const checkSubmitCondition = () => {
-    if (cardNum && checkAll) setReadySubmit(true);
+    if (cardNum && isChecked) setReadySubmit(true);
     else setReadySubmit(false);
   };
 
@@ -88,9 +77,21 @@ const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
   });
 
   return (
-    <form className={classes.form} onSubmit={handleCheckIn(cardNum)}>
-      <CheckList checkAll={checkAll} handleCheckAll={handleCheckAll} />
+    <form className={classes["check-in-form"]} onSubmit={handleCheckIn(cardNum)}>
+      <Modal open={isOpened} onClose={handleChecklistModalClose}>
+        <CheckList />
+      </Modal>
       <CardInput cardNum={cardNum} handleCardNumberChange={handleCardNumberChange} />
+      <div className={classes.checkWrap}>
+        <Checkbox
+          text='방역수칙에 동의하고 입장합니다.'
+          checked={isChecked}
+          onChange={handleCheck}
+        />
+        <button type='button' className={classes.checkDetail} onClick={handleChecklistModalOpen}>
+          자세히
+        </button>
+      </div>
       <Button type='submit' text='CHECK IN' disabled={!readySubmit} />
     </form>
   );

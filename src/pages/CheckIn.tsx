@@ -2,14 +2,14 @@ import moment from "moment";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/api";
+import ClusterStatusBoard from "../components/ClusterStatusBoard";
 import ProfileCard from "../components/ProfileCard";
-import StatusBoard from "../components/StatusBoard";
 import TimeLogCard from "../components/TimeLogCard";
 import classes from "../styles/pages/CheckInPage.module.css";
 import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
 
-const CheckInPage = () => {
+const CheckIn = () => {
   const checkinCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
   const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -129,8 +129,8 @@ const CheckInPage = () => {
   }, [getUserData, getLogs]);
 
   return (
-    <div className={classes["checkin-wrapper"]}>
-      <StatusBoard />
+    <>
+      <ClusterStatusBoard />
       <div
         ref={checkinCardWrapper}
         className={`${classes["card-wrapper"]} ${!isCardFlipped ? classes.front : classes.back}`}
@@ -145,7 +145,7 @@ const CheckInPage = () => {
           <TimeLogCard logs={logs} handleFlip={handleFlip} />
         </>
       </div>
-    </div>
+    </>
   );
 };
-export default CheckInPage;
+export default CheckIn;

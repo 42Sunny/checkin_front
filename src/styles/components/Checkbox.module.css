@@ -1,12 +1,8 @@
 .checkbox {
-  margin: 5px;
+  margin-right: 6px;
 }
-
-.checkbox-text {
-  display: flex;
-  justify-content: flex-start;
-  align-items: baseline;
-  word-break: keep-all;
-  font-size: 0.8rem;
-  margin: 5px;
+.text {
+  color: var(--black);
+  font-size: clamp(0.8em, 4vw, 1em);
+  letter-spacing: -0.02em;
 }

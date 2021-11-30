@@ -1,47 +1,25 @@
 import React from "react";
 import classes from "../styles/components/Checkbox.module.css";
 
-interface CheckBox {
-  id: number;
+interface IProps
+  extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   text: string;
-  checked: boolean;
 }
 
-interface IProps {
-  id: number;
-  text: string;
-  isChecked: boolean;
-  setCheckStatus: React.Dispatch<React.SetStateAction<CheckBox[]>>;
-}
-/** ***************************************************************
- ******************************************************************
- ******************************************************************
- ***************************안쓰는 컴포넌트****************************
- ******************************************************************
- ******************************************************************
- **************************************************************** */
-const Checkbox = (props: IProps) => {
-  const { id, text, isChecked, setCheckStatus } = props;
-
-  const handleChange = () => {
-    setCheckStatus((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, checked: !s.checked } : { ...s })),
-    );
-  };
-
+const Checkbox = ({ text, onChange, children, checked, id }: IProps) => {
   return (
-    <div>
-      <label htmlFor={id.toString()} className={classes["checkbox-text"]}>
-        <input
-          id={id.toString()}
-          className={classes.checkbox}
-          type='checkbox'
-          checked={isChecked}
-          onChange={handleChange}
-        />
-        {text}
-      </label>
-    </div>
+    <label className={classes.text} htmlFor={id}>
+      <input
+        id={id}
+        className={classes.checkbox}
+        type='checkbox'
+        checked={checked}
+        onChange={onChange}
+      />
+      {text}
+      {children}
+    </label>
   );
 };
+
 export default Checkbox;

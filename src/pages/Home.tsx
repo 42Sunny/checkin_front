@@ -6,7 +6,7 @@ import MainHeader from "../components/MainHeader";
 import MainNotice from "../components/MainNotice";
 import useUser from "../utils/hooks/useUser";
 
-function LandingPage() {
+const Home = () => {
   const history = useHistory();
   const {
     user: { isLogin },
@@ -30,6 +30,6 @@ function LandingPage() {
       <Button type='button' onClick={handleLogin} text='LOG IN' />
     </>
   );
-}
+};
 
-export default LandingPage;
+export default Home;

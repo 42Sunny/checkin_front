@@ -8,9 +8,9 @@
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "import/prefer-default-export": "warn",
-    "react/button-has-type": "off",
     "no-alert": "off",
     "@typescript-eslint/no-explicit-any": "off", 
+    "react/button-has-type":"off",
     // 에러타입 임시적으로 any씀 logger도입하기 전까지 유지
     "camelcase": "off",
     "no-console": "off",

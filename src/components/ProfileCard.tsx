@@ -1,10 +1,12 @@
 import ListIcon from "@mui/icons-material/List";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Backdrop, CircularProgress } from "@mui/material";
 import classes from "../styles/components/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInForm from "./CheckInForm";
 import CheckOutUi from "./CheckOutUi";
+import useCluster from "../utils/hooks/useCluster";
+import { formatOfficeTime } from "../utils/time";
 
 interface UtilBoxProps {
   handleFlip: (e: React.MouseEvent) => void;
@@ -14,6 +16,18 @@ const UtilBox: React.FC<UtilBoxProps> = ({ handleFlip }) => (
     <ListIcon onClick={handleFlip} />
   </div>
 );
+
+interface OfficeHourBoxProps {
+  officeTime: string;
+}
+const OfficeHourBox: React.FC<OfficeHourBoxProps> = ({ officeTime }) => (
+  <div className={classes["opening-hour-box"]}>
+    {`클러스터 운영시간: ${officeTime}`}
+    <br />
+    인포데스크 점심시간 13:00 ~ 14:00
+  </div>
+);
+
 interface ProfileProps {
   profile: string;
   userId: string;
@@ -40,6 +54,15 @@ const ProfileCard: React.FC<IProps> = ({
   const {
     user: { state, id: userId, profile },
   } = useUser();
+  const {
+    cluster: { openAt, closeAt },
+  } = useCluster();
+  const [officeTime, setOfficeTime] = useState("");
+
+  useEffect(() => {
+    setOfficeTime(formatOfficeTime({ openAt, closeAt }));
+  }, [closeAt, openAt]);
+
   return (
     <div className={classes.profileCard}>
       <Backdrop style={{ zIndex: 1 }} open={isLoading}>
@@ -47,8 +70,8 @@ const ProfileCard: React.FC<IProps> = ({
       </Backdrop>
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
-      {/* {state === "checkIn" && <hr className={classes.divider} />} */}
       <hr className={classes.divider} />
+      <OfficeHourBox officeTime={officeTime} />
       {state === "checkIn" ? (
         <CheckOutUi handleCheckOut={handleCheckOut} />
       ) : (

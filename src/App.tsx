@@ -46,7 +46,6 @@ function App() {
 
   return (
     <main className='wrapper'>
-      {/* <Notice /> */}
       <AppRouter />
       <footer className='footer'>v{process.env.REACT_APP_VERSION}</footer>
     </main>
