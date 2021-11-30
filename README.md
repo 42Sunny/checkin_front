@@ -1,7 +1,7 @@
 # Welcome to 42Checkin 👋
 ![Version](https://img.shields.io/badge/version-2.2.1-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/padawanR0k/42s_checkin_server/wiki)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## 🏠 [Homepage](https://cluster.42seoul.io/checkin)
 
