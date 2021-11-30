@@ -1,7 +1,8 @@
 # Welcome to 42Checkin 👋
+
 ![Version](https://img.shields.io/badge/version-2.2.1-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/padawanR0k/42s_checkin_server/wiki)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## 🏠 [Homepage](https://cluster.42seoul.io/checkin)
 
@@ -9,11 +10,10 @@
 
 ## 개요
 
-- 해당 저장소는 사회적 거리두기가 시행됨에 따라, 42서울 본과정생들의 클러스터 입장인원수를 파악하기 위한 서비스의 클라이언트 프로젝트입니다. 서버 프로젝트는 해당 [저장소](https://bitbucket.org/42seoul/checkin_back/src/master)로 이동해주세요.
-- 시설관리자를 위한 어드민 사이트의 클라이언트 프로젝트는 해당 [저장소](https://bitbucket.org/42seoul/admin_front/src/master/)에서 확인하실 수 있습니다.
+- 해당 저장소는 사회적 거리두기가 시행됨에 따라, 42서울 본과정생들의 클러스터 입장인원수를 파악하기 위한 서비스의 클라이언트 프로젝트입니다. 서버 프로젝트는 해당 [저장소](https://bitbucket.org/42seoul/checkin_back)로 이동해주세요.
+- 시설관리자를 위한 어드민 사이트의 클라이언트 프로젝트는 해당 [저장소](https://bitbucket.org/42seoul/admin_front)에서 확인하실 수 있습니다.
 
 <br/>
-
 
 ## 프로젝트 구조
 
@@ -107,6 +107,7 @@ src
 
 ## Reference
 
+- 코드 리뷰: 코드 리뷰는 해당 [저장소](https://github.com/42Sunny/checkin_front)에서 진행하고 있습니다.
 - 서버 프로젝트: [https://bitbucket.org/42seoul/checkin_back.git]
 
 <br/>
