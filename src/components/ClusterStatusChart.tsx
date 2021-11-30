@@ -1,6 +1,6 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
-import styles from "../styles/ClusterStatusChart.module.css";
+import styles from "../styles/components/ClusterStatusChart.module.css";
 import useCluster from "../utils/hooks/useCluster";
 
 const ClusterStatusChart = () => {

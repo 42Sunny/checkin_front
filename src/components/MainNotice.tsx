@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../styles/MainNotice.module.css";
+import styles from "../styles/components/MainNotice.module.css";
 import useCluster from "../utils/hooks/useCluster";
 
 const formatTime = ({ openAt, closeAt }: Pick<Cluster, "closeAt" | "openAt">) => {

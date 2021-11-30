@@ -1,7 +1,7 @@
 import ListIcon from "@mui/icons-material/List";
 import React from "react";
 import { Backdrop, CircularProgress } from "@mui/material";
-import classes from "../styles/ProfileCard.module.css";
+import classes from "../styles/components/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInForm from "./CheckInForm";
 import CheckOutUi from "./CheckOutUi";

@@ -5,7 +5,7 @@ import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/
 import ProfileCard from "../components/ProfileCard";
 import StatusBoard from "../components/StatusBoard";
 import TimeLogCard from "../components/TimeLogCard";
-import classes from "../styles/CheckInPage.module.css";
+import classes from "../styles/pages/CheckInPage.module.css";
 import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
 

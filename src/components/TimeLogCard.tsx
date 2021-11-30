@@ -1,7 +1,7 @@
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import moment from "moment-timezone";
 import React, { useEffect, useState } from "react";
-import classes from "../styles/TimeLogCard.module.css";
+import classes from "../styles/components/TimeLogCard.module.css";
 import useUser from "../utils/hooks/useUser";
 
 interface HeaderProps {

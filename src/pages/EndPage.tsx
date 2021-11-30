@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import classes from "../styles/EndPage.module.css";
+import classes from "../styles/pages/EndPage.module.css";
 
 const EndPage = () => {
   const history = useHistory();

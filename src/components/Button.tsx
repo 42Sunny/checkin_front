@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../styles/Button.module.css";
+import classes from "../styles/components/Button.module.css";
 
 interface IProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "type"> {
   text: string;

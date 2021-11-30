@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import classes from "../styles/CheckInForm.module.css";
+import classes from "../styles/components/CheckInForm.module.css";
 import Button from "./Button";
 import List from "./List";
 

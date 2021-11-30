@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import classes from "../styles/SlideButton.module.css";
+import classes from "../styles/components/SlideButton.module.css";
 
 interface IProps {
   value: number;

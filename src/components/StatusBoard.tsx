@@ -1,5 +1,5 @@
 import React from "react-redux";
-import classes from "../styles/StatusBoard.module.css";
+import classes from "../styles/components/StatusBoard.module.css";
 import useCluster from "../utils/hooks/useCluster";
 
 const StatusBoard = () => {
