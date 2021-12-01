@@ -3,9 +3,10 @@
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
-  padding: 18px;
+  padding: 1.8rem;
   background-color: var(--black);
   width: 100%;
-  min-width: 320px;
-  height: 40rem;
+  height: 64rem;
+  max-width: 40rem;
+  /* max-height: 600px; */
 }

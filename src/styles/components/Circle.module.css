@@ -1,8 +1,8 @@
 .circle {
   display: inline-block;
-  margin-left: 5px;
-  width: 15px;
-  height: 15px;
+  margin-left: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
 }
 

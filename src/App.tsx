@@ -29,7 +29,7 @@ const App = () => {
         seocho,
       });
     } catch (err) {
-      window.location.reload();
+      console.log(err);
       throw err;
     }
   }, [setCluster]);
