@@ -9,8 +9,7 @@ pipelines:
             - node
           script:
             - npm install
-
-            - REACT_APP_ENVIRONMENT=develop npm run test_release
+            - REACT_APP_ENVIRONMENT=develop npm run release:dev
           artifacts:
             - build/**
       - step:
