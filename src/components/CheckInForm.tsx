@@ -93,7 +93,12 @@ const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
           자세히
         </button>
       </div>
-      <Button type='submit' text='CHECK IN' disabled={!readySubmit} />
+      <Button
+        className={classes["check-in-button"]}
+        type='submit'
+        text='CHECK IN'
+        disabled={!readySubmit}
+      />
     </form>
   );
 };

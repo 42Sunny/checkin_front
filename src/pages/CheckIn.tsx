@@ -157,7 +157,7 @@ const CheckIn = () => {
             userState === "checkIn" ? (
               <>
                 <Box>
-                  <p>체크인 시간:{checkInTime}</p>
+                  <p>체크인 시간: {checkInTime}</p>
                 </Box>
                 <CheckOutUi handleCheckOut={handleCheckOut} />
               </>

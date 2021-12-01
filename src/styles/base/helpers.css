@@ -6,7 +6,20 @@
   padding: 1.8rem;
   background-color: var(--black);
   width: 100%;
-  height: 64rem;
+  height: 100%;
   max-width: 40rem;
-  /* max-height: 600px; */
+  max-height: 60rem;
+}
+
+/* iphone 12 */
+@media screen and (min-height: 800px) {
+  .wrapper {
+    max-height: 70rem;
+  }
+}
+/* desktop */
+@media screen and (min-width: 1200px) {
+  .wrapper {
+    max-height: 100000rem;
+  }
 }

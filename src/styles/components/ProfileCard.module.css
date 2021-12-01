@@ -26,10 +26,8 @@
 .profile {
   object-fit: cover;
   border-radius: 50%;
-  max-width: 20rem;
-  max-height: 20rem;
-  width: 30vw;
-  height: 30vw;
+  width: 15rem;
+  height: 15rem;
   margin-bottom: 1.6rem;
 }
 
@@ -38,6 +36,10 @@
   top: 0;
   right: 0;
   padding: 1.6rem;
+}
+
+.util-box svg {
+  transform: scale(1.5);
 }
 
 .divider {

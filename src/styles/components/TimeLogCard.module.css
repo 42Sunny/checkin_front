@@ -26,6 +26,9 @@
   right: 0;
   padding: 1.6rem;
 }
+.util-box svg {
+  transform: scale(1.5);
+}
 
 .time-log-header {
   padding: 1.6rem 0;

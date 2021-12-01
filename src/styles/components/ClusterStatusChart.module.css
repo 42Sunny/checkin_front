@@ -6,7 +6,7 @@
   margin-bottom: 20%;
 }
 .h2 {
-  font-size: calc(1.1em + 0.5vw);
+  font-size: calc(1.6rem + 0.5vw);
   color: rgba(255, 255, 255, 0.8);
   text-align: center;
   margin-top: 0.4rem;
@@ -19,12 +19,12 @@
   top: 0;
   width: 50%;
   color: rgba(255, 255, 255, 0.4);
-  height: calc(100% + 2.2em);
+  height: calc(100% + 3rem);
   z-index: 10;
 }
 .strong {
   color: rgba(255, 255, 255, 0.8);
-  font-size: calc(1.3em + 1.2vw);
+  font-size: calc(1.7rem + 1.2vw);
 }
 .chart {
   display: inline-block;
