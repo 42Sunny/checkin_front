@@ -25,7 +25,7 @@ const initalState: Cluster = {
 };
 
 // reducer
-const clusterReducer = (state = initalState, action: ClusterActions): Cluster => {
+const cluster = (state = initalState, action: ClusterActions): Cluster => {
   switch (action.type) {
     case SET_CLUSTER: {
       const { openAt, closeAt, gaepo, seocho, gaepoLimitation, seochoLimitation } = action.payload;
@@ -50,4 +50,4 @@ const clusterReducer = (state = initalState, action: ClusterActions): Cluster =>
   }
 };
 
-export default clusterReducer;
+export default cluster;

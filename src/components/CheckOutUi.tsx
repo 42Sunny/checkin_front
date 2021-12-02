@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import useUser from "../utils/hooks/useUser";
 import SlideButton from "./SlideButton";
 import classes from "../styles/components/CheckOutUi.module.css";
+import Box from "./Box";
+import { formatToGeneralTime } from "../utils/time";
 
 interface CardNumberProps {
   cardNum: string;
@@ -19,18 +21,23 @@ interface IProps {
 const CheckOutUi: React.FC<IProps> = ({ handleCheckOut }) => {
   const [sliderValue, setSliderValue] = useState(0);
   const {
-    user: { cardNum },
+    user: { cardNum, checkinAt },
   } = useUser();
-
+  const checkInTime = useMemo(() => formatToGeneralTime(new Date(checkinAt!)), [checkinAt]);
   useEffect(() => {
     if (sliderValue === 100) handleCheckOut();
   }, [handleCheckOut, sliderValue]);
 
   return (
-    <div className={classes["checkout-info-wrapper"]}>
-      <CardNumber cardNum={cardNum} />
-      <SlideButton value={sliderValue} setValue={setSliderValue} />
-    </div>
+    <>
+      <Box>
+        <p>체크인 시간: {checkInTime}</p>
+      </Box>
+      <div className={classes["checkout-info-wrapper"]}>
+        <CardNumber cardNum={cardNum} />
+        <SlideButton value={sliderValue} setValue={setSliderValue} />
+      </div>
+    </>
   );
 };
 

@@ -1,9 +1,11 @@
 import { Modal } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import classes from "../styles/components/CheckInForm.module.css";
+import classes from "../styles/components/CheckInUi.module.css";
+import useCluster from "../utils/hooks/useCluster";
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import List from "./List";
+import Box from "./Box";
 
 const checkLists = [
   "발열 체크시 37.5도 이하인 것을 확인했습니다.",
@@ -45,16 +47,20 @@ interface IProps {
   handleCheckIn: (cardNum: string) => (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
 }
 
-const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
+const CheckInUi: React.FC<IProps> = ({ handleCheckIn }) => {
   const [cardNum, setCardNum] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [readySubmit, setReadySubmit] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
 
-  const handleChecklistModalOpen = () => {
+  const {
+    cluster: { officeHours },
+  } = useCluster();
+
+  const handleModalOpen = () => {
     setIsOpened(true);
   };
-  const handleChecklistModalClose = () => {
+  const handleModalClose = () => {
     setIsOpened(false);
   };
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,29 +84,35 @@ const CheckInForm: React.FC<IProps> = ({ handleCheckIn }) => {
   });
 
   return (
-    <form className={classes["check-in-form"]} onSubmit={handleCheckIn(cardNum)}>
-      <Modal open={isOpened} onClose={handleChecklistModalClose}>
-        <CheckList />
-      </Modal>
-      <CardInput cardNum={cardNum} handleCardNumberChange={handleCardNumberChange} />
-      <div className={classes.checkWrap}>
-        <Checkbox
-          text='방역수칙에 동의하고 입장합니다.'
-          checked={isChecked}
-          onChange={handleCheck}
+    <>
+      <Box>
+        <p> 클러스터 운영시간: {officeHours}</p>
+        <p> 인포데스크 점심시간 13:00 ~ 14:00</p>
+      </Box>
+      <form className={classes["check-in-form"]} onSubmit={handleCheckIn(cardNum)}>
+        <Modal open={isOpened} onClose={handleModalClose}>
+          <CheckList />
+        </Modal>
+        <CardInput cardNum={cardNum} handleCardNumberChange={handleCardNumberChange} />
+        <div className={classes.checkWrap}>
+          <Checkbox
+            text='방역수칙에 동의하고 입장합니다.'
+            checked={isChecked}
+            onChange={handleCheck}
+          />
+          <button type='button' className={classes.checkDetail} onClick={handleModalOpen}>
+            자세히
+          </button>
+        </div>
+        <Button
+          className={classes["check-in-button"]}
+          type='submit'
+          text='CHECK IN'
+          disabled={!readySubmit}
         />
-        <button type='button' className={classes.checkDetail} onClick={handleChecklistModalOpen}>
-          자세히
-        </button>
-      </div>
-      <Button
-        className={classes["check-in-button"]}
-        type='submit'
-        text='CHECK IN'
-        disabled={!readySubmit}
-      />
-    </form>
+      </form>
+    </>
   );
 };
 
-export default CheckInForm;
+export default CheckInUi;

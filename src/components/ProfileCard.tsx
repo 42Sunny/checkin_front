@@ -2,6 +2,8 @@ import ListIcon from "@mui/icons-material/List";
 import React from "react";
 import classes from "../styles/components/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
+import CheckInUi from "./CheckInUi";
+import CheckOutUi from "./CheckOutUi";
 
 interface UtilBoxProps {
   handleFlip: (e: React.MouseEvent) => void;
@@ -24,20 +26,24 @@ const Profile: React.FC<ProfileProps> = ({ profile, userId }) => (
 );
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
-  render: () => React.ReactElement;
+  handleCheckIn: (cardNum: string) => (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
+  handleCheckOut: () => Promise<void>;
 }
 
-const ProfileCard: React.FC<IProps> = ({ handleFlip, render }) => {
+const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckOut }) => {
   const {
-    user: { id: userId, profile },
+    user: { id: userId, profile, state },
   } = useUser();
 
   return (
     <div className={classes.profileCard}>
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
+      <>
+        {state === "checkIn" && <CheckOutUi handleCheckOut={handleCheckOut} />}
+        {state === "checkOut" && <CheckInUi handleCheckIn={handleCheckIn} />}
+      </>
       <hr className={classes.divider} />
-      {render()}
     </div>
   );
 };
