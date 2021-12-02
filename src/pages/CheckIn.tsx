@@ -2,36 +2,24 @@ import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/api";
-import CheckInForm from "../components/CheckInForm";
-import CheckOutUi from "../components/CheckOutUi";
 import ClusterStatusBoard from "../components/ClusterStatusBoard";
 import ProfileCard from "../components/ProfileCard";
 import TimeLogCard from "../components/TimeLogCard";
 import classes from "../styles/pages/CheckInPage.module.css";
+import { removeCookieValue } from "../utils/cookie";
 import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
-import Box from "../components/Box";
-import { removeCookieValue } from "../utils/cookie";
 import { formatToGeneralTime } from "../utils/time";
 
 const CheckIn = () => {
   const checkInCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
-  const {
-    user: { state: userState },
-    setUser,
-    setCardNum,
-    logout,
-  } = useUser();
-  const {
-    cluster: { officeHours },
-    setCurrentUserCount,
-  } = useCluster();
+  const { setUser, setCardNum, logout } = useUser();
+  const { setCurrentUserCount } = useCluster();
 
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [checkInTime, setCheckInTime] = useState("");
 
   const getUserData = useCallback(async () => {
     setIsLoading(true);
@@ -43,7 +31,6 @@ const CheckIn = () => {
       } = getUserStatusRes.data;
       const cardNum = card !== null ? card : "";
 
-      if (checkin_at) setCheckInTime(formatToGeneralTime(new Date(checkin_at)));
       setUser({
         state: state || "checkOut",
         id: login,
@@ -54,7 +41,7 @@ const CheckIn = () => {
       });
       setCurrentUserCount({ gaepo, seocho });
     } catch (err) {
-      alert("유저 정보가 이상합니다.\n 다시 로그인해주세요.");
+      alert("유저 정보가 올바르지 않습니다.\n 반복될 경우 관리자에게 요청해주세요");
       removeCookieValue(process.env.REACT_APP_AUTH_KEY);
       logout();
       throw err;
@@ -153,24 +140,8 @@ const CheckIn = () => {
         className={`${classes["card-wrapper"]} ${!isCardFlipped ? classes.front : classes.back}`}
       >
         <ProfileCard
-          render={() =>
-            userState === "checkIn" ? (
-              <>
-                <Box>
-                  <p>체크인 시간: {checkInTime}</p>
-                </Box>
-                <CheckOutUi handleCheckOut={handleCheckOut} />
-              </>
-            ) : (
-              <>
-                <Box>
-                  <p> 클러스터 운영시간: {officeHours}</p>
-                  <p> 인포데스크 점심시간 13:00 ~ 14:00</p>
-                </Box>
-                <CheckInForm handleCheckIn={handleCheckIn} />
-              </>
-            )
-          }
+          handleCheckIn={handleCheckIn}
+          handleCheckOut={handleCheckOut}
           handleFlip={handleFlip}
         />
         <TimeLogCard logs={logs} handleFlip={handleFlip} />

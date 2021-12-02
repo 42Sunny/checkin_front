@@ -35,8 +35,8 @@ const App = () => {
   }, [setCluster]);
 
   useEffect(() => {
-    if (!getCookieValue(process.env.REACT_APP_AUTH_KEY || "")) logout();
-    else login();
+    if (getCookieValue(process.env.REACT_APP_AUTH_KEY)) login();
+    else logout();
     getConfigByDate();
   }, [getConfigByDate, login, logout]);
 

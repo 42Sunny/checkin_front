@@ -30,7 +30,7 @@ const initialState: User = {
 };
 
 // reducer
-const userReducer = (state = initialState, action: UserActions) => {
+const user = (state = initialState, action: UserActions) => {
   switch (action.type) {
     case LOGIN:
       return {
@@ -58,4 +58,4 @@ const userReducer = (state = initialState, action: UserActions) => {
   }
 };
 
-export default userReducer;
+export default user;
