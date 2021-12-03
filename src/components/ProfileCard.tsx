@@ -41,8 +41,12 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckO
       <img className={classes.logo} alt='logo' src={logo} />
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
-      {state === "checkIn" && <CheckOutUi handleCheckOut={handleCheckOut} />}
-      {state === "checkOut" && <CheckInUi handleCheckIn={handleCheckIn} />}
+      <hr className={classes.divider} />
+      {state === "checkIn" ? (
+        <CheckOutUi handleCheckOut={handleCheckOut} />
+      ) : (
+        <CheckInUi handleCheckIn={handleCheckIn} />
+      )}
     </div>
   );
 };
