@@ -4,6 +4,8 @@ import classes from "../styles/components/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInUi from "./CheckInUi";
 import CheckOutUi from "./CheckOutUi";
+import Circle from "./Circle";
+import logo from "../assets/42-logo-black.png";
 
 interface UtilBoxProps {
   handleFlip: (e: React.MouseEvent) => void;
@@ -21,7 +23,7 @@ interface ProfileProps {
 const Profile: React.FC<ProfileProps> = ({ profile, userId }) => (
   <div className={classes["profile-wrapper"]}>
     <img className={classes.profile} src={profile} alt='profile' />
-    <h2>{userId}</h2>
+    <h2 className={classes.userId}>{userId}</h2>
   </div>
 );
 interface IProps {
@@ -37,9 +39,9 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckO
 
   return (
     <div className={classes.profileCard}>
+      <img className={classes.logo} alt="logo" src={logo} />
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
-      <hr className={classes.divider} />
       {state === "checkIn" && <CheckOutUi handleCheckOut={handleCheckOut} />}
       {state === "checkOut" && <CheckInUi handleCheckIn={handleCheckIn} />}
     </div>
