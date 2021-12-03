@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react";
-import { getConfig, getUsingCard } from "./api/api";
+import { ConfigApi, UserApi } from "./api";
 import AppRouter from "./components/AppRouter";
 import { getCookieValue } from "./utils/cookie";
 import useCluster from "./utils/hooks/useCluster";
@@ -11,14 +11,14 @@ const App = () => {
 
   const getConfigByDate = useCallback(async () => {
     try {
-      const getConfigRes = await getConfig();
+      const getConfigRes = await ConfigApi.getConfig();
       const {
         seocho: seochoLimitation,
         gaepo: gaepoLimitation,
         open_at,
         close_at,
       } = getConfigRes.data;
-      const getUsingCardRes = await getUsingCard();
+      const getUsingCardRes = await UserApi.getUsingCard();
       const { gaepo, seocho } = getUsingCardRes.data;
       setCluster({
         openAt: open_at,
