@@ -12,5 +12,8 @@
 }
 
 .cardNum {
-  font-size: 5rem;
+  font-size: clamp(1.8em, 11vw, 3.2em);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--black);
 }

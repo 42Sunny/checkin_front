@@ -19,7 +19,7 @@ interface CardInputProps {
 }
 
 const CardInput: React.FC<CardInputProps> = ({ cardNum, handleCardNumberChange }) => (
-  <div className={classes["cardNumber-wrapper"]}>
+  <>
     <input
       className={classes.cardNumber}
       type='number'
@@ -30,7 +30,7 @@ const CardInput: React.FC<CardInputProps> = ({ cardNum, handleCardNumberChange }
       placeholder='카드 번호'
       onChange={handleCardNumberChange}
     />
-  </div>
+  </>
 );
 
 const CheckList: React.FC = () => (
