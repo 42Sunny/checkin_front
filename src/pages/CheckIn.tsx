@@ -1,7 +1,7 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getDailyUsage, getUserStatus, postCheckIn, postCheckOut } from "../api/api";
+import { UserApi } from "../api";
 import ClusterStatusBoard from "../components/ClusterStatusBoard";
 import ProfileCard from "../components/ProfileCard";
 import TimeLogCard from "../components/TimeLogCard";
@@ -24,7 +24,7 @@ const CheckIn = () => {
   const getUserData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const getUserStatusRes = await getUserStatus();
+      const getUserStatusRes = await UserApi.getUserStatus();
       const {
         user: { card, login, profile_image_url, state, checkin_at, checkout_at },
         cluster: { gaepo, seocho },
@@ -56,11 +56,9 @@ const CheckIn = () => {
       const from = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth(), 1));
       const to = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth() + 1, 0));
 
-      const response = await getDailyUsage(from, to);
-      if (response.data?.list) {
-        const logData = response.data.list;
-        setLogs(logData.reverse());
-      }
+      const response = await UserApi.getDailyUsage({ from, to });
+      const logData = response.data.list;
+      setLogs(logData.reverse());
     } catch (err) {
       setLogs([]);
       throw err;
@@ -76,9 +74,9 @@ const CheckIn = () => {
       e.preventDefault();
       setIsLoading(true);
       try {
-        const { data: userData } = await getUserStatus();
+        const { data: userData } = await UserApi.getUserStatus();
         if (userData.user.card) throw new Error("이미 체크인 되었습니다.");
-        const { data: checkinData } = await postCheckIn(cardNum);
+        const { data: checkinData } = await UserApi.postCheckIn({ cardNum });
         if (!checkinData.result)
           throw new Error(
             "체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.",
@@ -102,9 +100,9 @@ const CheckIn = () => {
   const handleCheckOut = useCallback(async () => {
     setIsLoading(true);
     try {
-      const { data: userData } = await getUserStatus();
+      const { data: userData } = await UserApi.getUserStatus();
       if (!userData.user.card) throw new Error("이미 체크아웃 되었습니다.");
-      const { data } = await postCheckOut();
+      const { data } = await UserApi.postCheckOut();
       if (!data)
         throw new Error(
           "체크아웃이 정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.",
