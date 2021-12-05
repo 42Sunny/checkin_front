@@ -13,11 +13,11 @@
 }
 
 /* iphone 12 */
-/* @media screen and (min-height: 800px) {
+@media screen and (min-height: 800px) {
   .wrapper {
-    max-height: 70rem;
+    max-height: 73rem;
   }
-} */
+}
 /* desktop */
 @media screen and (min-width: 1200px) {
   .wrapper {
