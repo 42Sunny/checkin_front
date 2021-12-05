@@ -4,7 +4,6 @@ import classes from "../styles/components/ProfileCard.module.css";
 import useUser from "../utils/hooks/useUser";
 import CheckInUi from "./CheckInUi";
 import CheckOutUi from "./CheckOutUi";
-import Circle from "./Circle";
 import logo from "../assets/42-logo-black.png";
 
 interface UtilBoxProps {
@@ -39,7 +38,7 @@ const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckO
 
   return (
     <div className={classes.profileCard}>
-      <img className={classes.logo} alt="logo" src={logo} />
+      <img className={classes.logo} alt='logo' src={logo} />
       <UtilBox handleFlip={handleFlip} />
       <Profile profile={profile} userId={userId} />
       {state === "checkIn" && <CheckOutUi handleCheckOut={handleCheckOut} />}
