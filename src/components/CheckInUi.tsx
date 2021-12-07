@@ -1,4 +1,4 @@
-import { Modal } from "@mui/material";
+import { Modal, Box as MuiBox } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import classes from "../styles/components/CheckInUi.module.css";
 import useCluster from "../utils/hooks/useCluster";
@@ -91,7 +91,9 @@ const CheckInUi: React.FC<IProps> = ({ handleCheckIn }) => {
       </Box>
       <form className={classes["check-in-form"]} onSubmit={handleCheckIn(cardNum)}>
         <Modal open={isOpened} onClose={handleModalClose}>
-          <CheckList />
+          <MuiBox>
+            <CheckList />
+          </MuiBox>
         </Modal>
         <CardInput cardNum={cardNum} handleCardNumberChange={handleCardNumberChange} />
         <div className={classes.checkWrap}>
