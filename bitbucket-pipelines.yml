@@ -9,6 +9,7 @@ pipelines:
             - node
           script:
             - npm install
+            - export REACT_APP_VERSION=$REACT_APP_VERSION
             - npm run release:dev
           artifacts:
             - build/**
