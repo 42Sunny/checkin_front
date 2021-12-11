@@ -7,20 +7,6 @@
   background-color: var(--black);
   width: 100%;
   max-width: 48rem;
-  /* min-height: 60rem;
-  max-height: 65rem; */
+  max-height: 65rem; 
   height: 100%;
-}
-
-/* iphone 12 */
-@media screen and (min-height: 800px) {
-  .wrapper {
-    max-height: 73rem;
-  }
-}
-/* desktop */
-@media screen and (min-width: 1200px) {
-  .wrapper {
-    max-height: 100000rem;
-  }
 }

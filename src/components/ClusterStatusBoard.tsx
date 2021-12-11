@@ -13,13 +13,15 @@ const getClusterCongestion = (current: number, max: number) => {
 interface StatusItemProps {
   current: number;
   limitation: number;
+  name: string;
 }
-const StatusItem: React.FC<StatusItemProps> = ({ current, limitation }) => {
+
+const StatusItem: React.FC<StatusItemProps> = ({ name, current, limitation }) => {
   const congestion = getClusterCongestion(current, limitation);
   return (
     <div className={classes.item}>
       <span className={classes.title}>
-        개포
+        {name}
         <span className={classes.count}>
           <span>
             {current} / {limitation}
@@ -38,8 +40,8 @@ const ClusterStatusBoard = () => {
 
   return (
     <div className={classes.wrap}>
-      <StatusItem current={gaepo} limitation={gaepoLimitation} />
-      <StatusItem current={seocho} limitation={seochoLimitation} />
+      <StatusItem name='개포' current={gaepo} limitation={gaepoLimitation} />
+      <StatusItem name='서초' current={seocho} limitation={seochoLimitation} />
     </div>
   );
 };

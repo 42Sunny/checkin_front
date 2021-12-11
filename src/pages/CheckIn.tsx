@@ -121,8 +121,7 @@ const CheckIn = () => {
   }, [history]);
 
   useEffect(() => {
-    getUserData();
-    getLogs();
+    Promise.all([getUserData(), getLogs()]);
     return () => {
       setIsLoading(false);
     };
