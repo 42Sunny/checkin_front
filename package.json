@@ -10,7 +10,7 @@
     "url": "git+https://bitbucket.org/42seoul/checkin_front.git"
   },
   "engines": {
-    "node": ">=16.3.0"
+    "node": ">=12.3.0"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
