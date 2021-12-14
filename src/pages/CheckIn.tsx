@@ -11,59 +11,69 @@ import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
 import { formatToGeneralTime } from "../utils/time";
 
+const getUserStatus = async () => {
+  const getUserStatusRes = await UserApi.getUserStatus();
+  const {
+    user: { card, login, profile_image_url, state, checkin_at, checkout_at },
+    cluster: { gaepo, seocho },
+  } = getUserStatusRes.data;
+  const cardNum = card !== null ? card : "";
+  return {
+    user: {
+      state: state || "checkOut",
+      id: login,
+      cardNum,
+      checkinAt: checkin_at,
+      checkoutAt: checkout_at,
+      profile: profile_image_url,
+    },
+    cluster: { gaepo, seocho },
+  };
+};
+
+const getLogs = async () => {
+  const today = new Date();
+  const from = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth(), 1));
+  const to = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth() + 1, 0));
+
+  const response = await UserApi.getDailyUsage({ from, to });
+  const logData = response.data.list;
+  return logData.reverse();
+};
+
+const ALREADY_CHECK_IN_ERROR = "이미 체크인 되었습니다." as const;
+const GENERAL_CHECK_IN_ERROR = "체크인을 처리할 수 없습니다. 관리자에게 문의해주세요." as const;
+const ALREADY_CHECK_OUT_ERROR = "이미 체크아웃 되었습니다." as const;
+const GENERAL_CHECK_OUT_ERROR = "체크아웃을 처리할 수 없습니다. 관리자에게 문의해주세요." as const;
 const CheckIn = () => {
   const checkInCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
-  const { setUser, setCardNum, logout } = useUser();
+  const {
+    setUser,
+    logout,
+    user: { state: userState },
+  } = useUser();
   const { setCurrentUserCount } = useCluster();
 
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getUserData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const getUserStatusRes = await UserApi.getUserStatus();
-      const {
-        user: { card, login, profile_image_url, state, checkin_at, checkout_at },
-        cluster: { gaepo, seocho },
-      } = getUserStatusRes.data;
-      const cardNum = card !== null ? card : "";
-
-      setUser({
-        state: state || "checkOut",
-        id: login,
-        cardNum,
-        checkinAt: checkin_at,
-        checkoutAt: checkout_at,
-        profile: profile_image_url,
-      });
-      setCurrentUserCount({ gaepo, seocho });
-    } catch (err) {
+      const [getUserStatusData, getLogsData] = await Promise.all([getUserStatus(), getLogs()]);
+      setUser(getUserStatusData.user);
+      setCurrentUserCount(getUserStatusData.cluster);
+      setLogs(getLogsData);
+    } catch (e) {
+      setLogs([]);
       alert("유저 정보가 올바르지 않습니다.\n 반복될 경우 관리자에게 요청해주세요");
       removeCookieValue(process.env.REACT_APP_AUTH_KEY);
       logout();
-      throw err;
-    } finally {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   }, [logout, setCurrentUserCount, setUser]);
-
-  const getLogs = useCallback(async () => {
-    try {
-      const today = new Date();
-      const from = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth(), 1));
-      const to = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth() + 1, 0));
-
-      const response = await UserApi.getDailyUsage({ from, to });
-      const logData = response.data.list;
-      setLogs(logData.reverse());
-    } catch (err) {
-      setLogs([]);
-      throw err;
-    }
-  }, []);
 
   const handleFlip = () => {
     setIsCardFlipped((prev) => !prev);
@@ -74,43 +84,32 @@ const CheckIn = () => {
       e.preventDefault();
       setIsLoading(true);
       try {
-        const { data: userData } = await UserApi.getUserStatus();
-        if (userData.user.card) throw new Error("이미 체크인 되었습니다.");
+        if (userState === "checkIn") throw new Error(ALREADY_CHECK_IN_ERROR);
         const { data: checkinData } = await UserApi.postCheckIn({ cardNum });
-        if (!checkinData.result)
-          throw new Error(
-            "체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.",
-          );
+        if (!checkinData.result) throw new Error(GENERAL_CHECK_IN_ERROR);
         history.push("/end");
         return true;
       } catch (err: any) {
-        let message = "정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
-        setCardNum({ cardNum: "" });
+        let message = GENERAL_CHECK_IN_ERROR;
         message = err?.response?.data?.message || err.message || message;
         alert(message);
-        window.location.reload();
         throw err;
       } finally {
         setIsLoading(false);
       }
     },
-    [history, setCardNum],
+    [history, userState],
   );
 
   const handleCheckOut = useCallback(async () => {
     setIsLoading(true);
     try {
-      const { data: userData } = await UserApi.getUserStatus();
-      if (!userData.user.card) throw new Error("이미 체크아웃 되었습니다.");
+      if (userState === "checkOut") throw new Error(ALREADY_CHECK_OUT_ERROR);
       const { data } = await UserApi.postCheckOut();
-      if (!data)
-        throw new Error(
-          "체크아웃이 정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.",
-        );
+      if (!data) throw new Error(GENERAL_CHECK_OUT_ERROR);
       history.push("/end");
     } catch (err: any) {
-      let message =
-        "체크아웃이 정상적으로 처리되지 않았습니다.\n네트워크 연결 상태를 확인해주세요.";
+      let message = GENERAL_CHECK_OUT_ERROR;
       message = err?.response?.data?.message || err.message || message;
       alert(message);
       window.location.reload();
@@ -118,14 +117,14 @@ const CheckIn = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [history]);
+  }, [history, userState]);
 
   useEffect(() => {
-    Promise.all([getUserData(), getLogs()]);
+    getUserData();
     return () => {
       setIsLoading(false);
     };
-  }, [getUserData, getLogs]);
+  }, [getUserData]);
   return (
     <>
       <Backdrop style={{ zIndex: 1 }} open={isLoading}>

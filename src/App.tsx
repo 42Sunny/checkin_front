@@ -10,17 +10,17 @@ const App = () => {
   const { setCluster } = useCluster();
   const { login, logout } = useUser();
 
-  const getConfigByDate = useCallback(async () => {
+  const getConfig = useCallback(async () => {
     try {
-      const getConfigRes = await ConfigApi.getConfig();
-      const {
-        seocho: seochoLimitation,
-        gaepo: gaepoLimitation,
-        open_at,
-        close_at,
-      } = getConfigRes.data;
-      const getUsingCardRes = await UserApi.getUsingCard();
-      const { gaepo, seocho } = getUsingCardRes.data;
+      const [
+        {
+          data: { open_at, close_at, seocho: seochoLimitation, gaepo: gaepoLimitation },
+        },
+        {
+          data: { gaepo, seocho },
+        },
+      ] = await Promise.all([ConfigApi.getConfig(), UserApi.getUsingCard()]);
+
       setCluster({
         openAt: open_at,
         closeAt: close_at,
@@ -38,8 +38,8 @@ const App = () => {
   useEffect(() => {
     if (getCookieValue(process.env.REACT_APP_AUTH_KEY)) login();
     else logout();
-    getConfigByDate();
-  }, [getConfigByDate, login, logout]);
+    getConfig();
+  }, [getConfig, login, logout]);
 
   return (
     <main className='wrapper'>
