@@ -49,3 +49,8 @@ input[type="number"] {
 #root {
   height: 100%;
 }
+@media (min-width: 800px) {
+  #root {
+    height: auto;
+  }
+}
