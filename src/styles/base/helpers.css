@@ -12,4 +12,10 @@
   height: 100%;
 }
 
-
+@media (min-width: 800px) {
+  .wrapper {
+    max-width: fit-content;
+    max-height: fit-content;
+    min-height: 80rem;
+  }
+}
