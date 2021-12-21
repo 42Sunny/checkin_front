@@ -101,23 +101,27 @@ const CheckIn = () => {
     [history, userState],
   );
 
-  const handleCheckOut = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      if (userState === "checkOut") throw new Error(ALREADY_CHECK_OUT_ERROR);
-      const { data } = await UserApi.postCheckOut();
-      if (!data) throw new Error(GENERAL_CHECK_OUT_ERROR);
-      history.push("/end");
-    } catch (err: any) {
-      let message = GENERAL_CHECK_OUT_ERROR;
-      message = err?.response?.data?.message || err.message || message;
-      alert(message);
-      window.location.reload();
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [history, userState]);
+  const handleCheckOut = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setIsLoading(true);
+      try {
+        if (userState === "checkOut") throw new Error(ALREADY_CHECK_OUT_ERROR);
+        const { data } = await UserApi.postCheckOut();
+        if (!data) throw new Error(GENERAL_CHECK_OUT_ERROR);
+        history.push("/end");
+      } catch (err: any) {
+        let message = GENERAL_CHECK_OUT_ERROR;
+        message = err?.response?.data?.message || err.message || message;
+        alert(message);
+        window.location.reload();
+        throw err;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [history, userState],
+  );
 
   useEffect(() => {
     getUserData();
