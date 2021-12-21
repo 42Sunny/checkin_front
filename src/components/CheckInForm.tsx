@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classes from "../styles/components/CheckInUi.module.css";
 import Button from "./common/Button";
 import Checkbox from "./common/Checkbox";
@@ -52,17 +52,14 @@ const CheckInForm: React.FC<CheckInFormProps> = ({ handleCheckIn, handleModalOpe
     setCardNum(e.target.value);
   };
 
-  const checkSubmitCondition = () => {
+  const checkSubmitCondition = useCallback(() => {
     if (cardNum && isChecked) setReadySubmit(true);
     else setReadySubmit(false);
-  };
+  }, [cardNum, isChecked]);
 
   useEffect(() => {
     checkSubmitCondition();
-    return () => {
-      setReadySubmit(false);
-    };
-  });
+  }, [checkSubmitCondition]);
 
   return (
     <form className={classes["check-in-form"]} onSubmit={handleCheckIn(cardNum)}>
