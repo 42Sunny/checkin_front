@@ -14,8 +14,8 @@ const AppRouter = () => {
       <AuthRoute path='/checkin' exact component={CheckIn} />
       <AuthRoute path='/end' exact component={End} />
 
-      <AdminAuthRoute path='/admin/log' exact component={CheckInLog} />
-      <AdminAuthRoute path='/admin/setting' exact component={CheckInSetting} />
+      <Route path='/admin/log' exact component={CheckInLog} />
+      <Route path='/admin/setting' exact component={CheckInSetting} />
       <Redirect from='/admin' to='/admin/log' />
 
       <Route path='/' component={Home} />
