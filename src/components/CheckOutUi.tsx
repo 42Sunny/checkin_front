@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import useUser from "../utils/hooks/useUser";
 import { formatToGeneralTime } from "../utils/time";
-import Box from "./Box";
+import Box from "./common/Box";
 import CheckOutForm from "./CheckOutForm";
 
 interface IProps {
