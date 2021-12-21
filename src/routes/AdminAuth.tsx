@@ -1,5 +1,5 @@
 import React, { ComponentType } from "react";
-import { Route, RouteProps, useHistory } from "react-router-dom";
+import { RouteProps, Route, useHistory } from "react-router-dom";
 import useUser from "../utils/hooks/useUser";
 
 interface IProps extends RouteProps {
@@ -14,12 +14,8 @@ const Auth: React.FC<IProps> = ({ component: Component, ...restProps }) => {
     <Route
       {...restProps}
       render={(props) => {
-        if (!isLogin) {
+        if (!isAdmin || !isLogin) {
           history.push("/");
-          return null;
-        }
-        if (isAdmin) {
-          history.push("/admin");
           return null;
         }
         return <Component {...props} />;

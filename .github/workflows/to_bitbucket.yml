@@ -21,7 +21,5 @@ jobs:
               git config --global user.email ${{ github.event.pusher.email }}
               git config --global user.name ${{github.event.pusher.name}}
               git remote add bitbucket https://sookang:${{secrets.BITBUCKET_PASSWORD}}@bitbucket.org/42seoul/checkin_front.git
-      - name: pull rebase
-        run: git pull --rebase bitbucket develop
       - name: push bitbucket
-        run: git push bitbucket develop
+        run: git push -f bitbucket develop
