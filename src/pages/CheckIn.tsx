@@ -1,8 +1,8 @@
 import { Backdrop, CircularProgress } from "@mui/material";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserApi } from "../api";
-import ClusterStatusBoard from "../components/ClusterStatusBoard";
+import ClusterStatusBoard from "../components/common/ClusterStatusBoard";
 import ProfileCard from "../components/ProfileCard";
 import TimeLogCard from "../components/TimeLogCard";
 import classes from "../styles/pages/CheckInPage.module.css";
@@ -16,6 +16,7 @@ const getUserStatus = async () => {
   const {
     user: { card, login, profile_image_url, state, checkin_at, checkout_at },
     cluster: { gaepo, seocho },
+    isAdmin,
   } = getUserStatusRes.data;
   const cardNum = card !== null ? card : "";
   return {
@@ -28,6 +29,7 @@ const getUserStatus = async () => {
       profile: profile_image_url,
     },
     cluster: { gaepo, seocho },
+    isAdmin,
   };
 };
 
@@ -45,12 +47,13 @@ const ALREADY_CHECK_IN_ERROR = "이미 체크인 되었습니다." as const;
 const GENERAL_CHECK_IN_ERROR = "체크인을 처리할 수 없습니다. 관리자에게 문의해주세요." as const;
 const ALREADY_CHECK_OUT_ERROR = "이미 체크아웃 되었습니다." as const;
 const GENERAL_CHECK_OUT_ERROR = "체크아웃을 처리할 수 없습니다. 관리자에게 문의해주세요." as const;
+
 const CheckIn = () => {
-  const checkInCardWrapper = useRef<HTMLDivElement>(null);
   const history = useHistory();
   const {
     setUser,
     logout,
+    setAuth,
     user: { state: userState },
   } = useUser();
   const { setCurrentUserCount } = useCluster();
@@ -64,6 +67,7 @@ const CheckIn = () => {
     try {
       const [getUserStatusData, getLogsData] = await Promise.all([getUserStatus(), getLogs()]);
       setUser(getUserStatusData.user);
+      setAuth({ isAdmin: getUserStatusData.isAdmin });
       setCurrentUserCount(getUserStatusData.cluster);
       setLogs(getLogsData);
     } catch (e) {
@@ -73,7 +77,7 @@ const CheckIn = () => {
       logout();
     }
     setIsLoading(false);
-  }, [logout, setCurrentUserCount, setUser]);
+  }, [logout, setAuth, setCurrentUserCount, setUser]);
 
   const handleFlip = () => {
     setIsCardFlipped((prev) => !prev);
@@ -93,6 +97,7 @@ const CheckIn = () => {
         let message = GENERAL_CHECK_IN_ERROR;
         message = err?.response?.data?.message || err.message || message;
         alert(message);
+        window.location.reload();
         throw err;
       } finally {
         setIsLoading(false);
@@ -129,6 +134,7 @@ const CheckIn = () => {
       setIsLoading(false);
     };
   }, [getUserData]);
+
   return (
     <>
       <Backdrop style={{ zIndex: 1 }} open={isLoading}>
@@ -136,7 +142,6 @@ const CheckIn = () => {
       </Backdrop>
       <ClusterStatusBoard />
       <div
-        ref={checkInCardWrapper}
         className={`${classes["card-wrapper"]} ${!isCardFlipped ? classes.front : classes.back}`}
       >
         <ProfileCard

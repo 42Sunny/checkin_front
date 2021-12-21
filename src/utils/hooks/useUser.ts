@@ -29,7 +29,14 @@ const useUser = () => {
     [dispatch],
   );
 
-  return { user, login, logout, setCardNum, setUser };
+  const setAuth = useCallback(
+    (param: { isAdmin: boolean }) => {
+      dispatch(userActions.setAuth(param));
+    },
+    [dispatch],
+  );
+
+  return { user, login, logout, setCardNum, setUser, setAuth };
 };
 
 export default useUser;
