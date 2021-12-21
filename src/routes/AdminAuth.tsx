@@ -14,7 +14,11 @@ const Auth: React.FC<IProps> = ({ component: Component, ...restProps }) => {
     <Route
       {...restProps}
       render={(props) => {
+        // admin권한을 checkin페이지에서 받아 이 코드가 실행되고 admin권한 획득함
+        // 떄문에 라우팅이 이상해짐
         if (!isAdmin || !isLogin) {
+          alert(isAdmin);
+          alert(isLogin);
           history.push("/");
           return null;
         }
