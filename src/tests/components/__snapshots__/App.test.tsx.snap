@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App to match snapshot 1`] = `
+<main
+  className="wrapper"
+>
+  <header
+    className="header"
+  >
+    <span
+      className="logo"
+    >
+      42 logo
+    </span>
+    <h1
+      className="title"
+    >
+      Check-in Cluster
+    </h1>
+  </header>
+  <section
+    className="wrapper"
+  >
+    <div
+      className="chart"
+    >
+      <h2
+        className="h2"
+      >
+        개포
+      </h2>
+      <canvas
+        height={150}
+        onClick={[Function]}
+        role="img"
+        width={300}
+      />
+      <span
+        className="label"
+      >
+        <span>
+          <strong
+            className="strong"
+          >
+            0
+          </strong>
+           / 
+          0
+        </span>
+      </span>
+    </div>
+    <div
+      className="chart"
+    >
+      <h2
+        className="h2"
+      >
+        서초
+      </h2>
+      <canvas
+        height={150}
+        onClick={[Function]}
+        role="img"
+        width={300}
+      />
+      <span
+        className="label"
+      >
+        <span>
+          <strong
+            className="strong"
+          >
+            0
+          </strong>
+           / 
+          0
+        </span>
+      </span>
+    </div>
+  </section>
+  <section
+    className="notice"
+  >
+    <strong
+      className="strong"
+    >
+      운영시간: 
+    </strong>
+    <span>
+      사회적 거리두기 단계에 따라 운영시간 변경 가능
+    </span>
+  </section>
+  <button
+    className="button green"
+    color="green"
+    onClick={[Function]}
+    type="button"
+  >
+    LOG IN
+  </button>
+  <footer
+    className="footer"
+  >
+    v
+    2.2.0
+  </footer>
+</main>
+`;
