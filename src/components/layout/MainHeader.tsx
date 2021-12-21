@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../styles/components/MainHeader.module.css";
+import classes from "../../styles/components/MainHeader.module.css";
 
 const MainHeader = () => {
   return (
@@ -11,5 +11,3 @@ const MainHeader = () => {
 };
 
 export default MainHeader;
-
-// TODO: 쓸거임

@@ -20,7 +20,7 @@ import GridItem from "../components/Grid/GridItem";
 
 import PaginationRounded from "../components/Paging";
 import SearchBar from "../components/SearchBar";
-import StatusBoard from "../../components/StatusBoard";
+import StatusBoard from "../../components/common/StatusBoard";
 import { forceCheckOut, getUserStatus as getCheckAdmin, getUsingCard } from "../api/api";
 
 import "../assets/styles/AdminPage.css";
@@ -34,7 +34,7 @@ const LOGTYPE = {
 };
 const styles = {
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
     maxWidth: "",
   },
   cardTitleWhite: {
@@ -167,6 +167,7 @@ function CheckInLog() {
     <div
       style={{
         width: "100%",
+        minHeight:'100vh',
         display: "flex",
         flexDirection: "column",
         margin: "auto",

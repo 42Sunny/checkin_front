@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { ConfigApi, UserApi } from "./api";
-import AppRouter from "./components/AppRouter";
+import AppRouter from "./routes/AppRouter";
 import { getCookieValue } from "./utils/cookie";
 import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";

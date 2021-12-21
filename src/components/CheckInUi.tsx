@@ -2,9 +2,9 @@ import { Box as MuiBox, Modal } from "@mui/material";
 import React, { useState } from "react";
 import classes from "../styles/components/CheckInUi.module.css";
 import useCluster from "../utils/hooks/useCluster";
-import Box from "./Box";
+import Box from "./common/Box";
 import CheckInForm from "./CheckInForm";
-import List from "./List";
+import List from "./common/List";
 
 const checkLists = [
   "발열 체크시 37.5도 이하인 것을 확인했습니다.",
