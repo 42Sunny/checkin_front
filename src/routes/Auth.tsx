@@ -18,10 +18,12 @@ const Auth: React.FC<IProps> = ({ component: Component, ...restProps }) => {
           history.push("/");
           return null;
         }
-        if (isAdmin) {
-          history.push("/admin");
-          return null;
-        }
+        // TODO: 카뎃이면서 어드민인 경우를 생각해서 일단 주석처리함
+        // 다른방법(ex:환경변수?)을 찾아볼것
+        // if (isAdmin) {
+        //   history.push("/admin");
+        //   return null;
+        // }
         return <Component {...props} />;
       }}
     />
