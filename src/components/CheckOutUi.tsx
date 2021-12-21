@@ -12,7 +12,7 @@ const CheckOutUi: React.FC<IProps> = ({ handleCheckOut }) => {
     user: { checkinAt },
   } = useUser();
 
-  const checkInTime = useMemo(() => formatToGeneralTime(new Date(checkinAt ?? "")), [checkinAt]);
+  const checkInTime = formatToGeneralTime(new Date(checkinAt ?? ""));
 
   return (
     <>
