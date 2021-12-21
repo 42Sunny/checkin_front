@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import Button from "../components/Button";
-import ClusterStatusChart from "../components/ClusterStatusChart";
-import MainHeader from "../components/MainHeader";
-import MainNotice from "../components/MainNotice";
+import Button from "../components/common/Button";
+import ClusterStatusChart from "../components/common/ClusterStatusChart";
+import MainHeader from "../components/layout/MainHeader";
+import MainNotice from "../components/layout/MainNotice";
 import useUser from "../utils/hooks/useUser";
 
 const Home = () => {

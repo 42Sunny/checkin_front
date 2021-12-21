@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classes from "../styles/components/CheckInUi.module.css";
-import Button from "./Button";
-import Checkbox from "./Checkbox";
+import Button from "./common/Button";
+import Checkbox from "./common/Checkbox";
 
 interface CardInputProps {
   cardNum: string;

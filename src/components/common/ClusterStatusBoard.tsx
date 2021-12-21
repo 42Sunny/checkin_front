@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "../styles/components/ClusterStatusBoard.module.css";
-import useCluster from "../utils/hooks/useCluster";
+import classes from "../../styles/components/ClusterStatusBoard.module.css";
+import useCluster from "../../utils/hooks/useCluster";
 import Circle from "./Circle";
 
 const getClusterCongestion = (current: number, max: number) => {
