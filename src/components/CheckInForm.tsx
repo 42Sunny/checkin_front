@@ -52,6 +52,7 @@ const CheckInForm: React.FC<CheckInFormProps> = ({ handleCheckIn, handleModalOpe
     setCardNum(e.target.value);
   };
 
+<<<<<<< HEAD
   const checkSubmitCondition = useCallback(() => {
     if (cardNum && isChecked) setReadySubmit(true);
     else setReadySubmit(false);
@@ -60,6 +61,19 @@ const CheckInForm: React.FC<CheckInFormProps> = ({ handleCheckIn, handleModalOpe
   useEffect(() => {
     checkSubmitCondition();
   }, [checkSubmitCondition]);
+=======
+  const checkSubmitCondition = () => {
+    if (cardNum && isChecked) setReadySubmit(true);
+    else setReadySubmit(false);
+  };
+
+  useEffect(() => {
+    checkSubmitCondition();
+    return () => {
+      setReadySubmit(false);
+    };
+  });
+>>>>>>> 76db201 (checkin,out form과 ui분리, clusterChart 컴포넌트화)
 
   return (
     <form className={classes["check-in-form"]} onSubmit={handleCheckIn(cardNum)}>
