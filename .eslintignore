@@ -1,0 +1,4 @@
+setupProxy.js
+
+src/admin/**/*
+src/checkin-admin/**/*

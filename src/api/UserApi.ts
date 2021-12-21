@@ -1,7 +1,9 @@
 import Api from "./api";
 
-interface GetUserStatusResponse {
+export interface GetUserStatusResponse {
   user: {
+    _id: number;
+    card_no: null | number;
     login: string;
     card: string | null;
     state: "checkIn" | "checkOut" | null;
@@ -17,30 +19,30 @@ interface GetUserStatusResponse {
   isAdmin: boolean;
 }
 
-interface PostCheckInRequest {
+export interface PostCheckInRequest {
   cardNum: string;
 }
-interface PostCheckInResponse {
+export interface PostCheckInResponse {
   result: boolean;
   notice: boolean;
 }
-interface GetUsageRequest {
+export interface GetUsageRequest {
   from: string;
   to: string;
 }
-interface GetDailyUsageResponse {
+export interface GetDailyUsageResponse {
   list: {
     login: string;
     date: string;
     seconds: string;
   }[];
 }
-interface GetUsingCardResponse {
+export interface GetUsingCardResponse {
   gaepo: number;
   seocho: number;
 }
 
-type PostCheckOutResponse = boolean;
+export type PostCheckOutResponse = boolean;
 
 class UserApi {
   static baseUrl = "/user";
