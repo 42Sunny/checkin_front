@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import styles from "../../styles/components/ClusterStatusChart.module.css";
 import useCluster from "../../utils/hooks/useCluster";
@@ -20,7 +20,7 @@ interface ChartProps {
   maxUserCount: number;
 }
 const Chart: React.FC<ChartProps> = ({ name, curUserCount, maxUserCount }) => {
-  const chartData = useMemo(() => data(curUserCount, maxUserCount), [curUserCount, maxUserCount]);
+  const chartData = data(curUserCount, maxUserCount);
   return (
     <div className={styles.chart}>
       <h2 className={styles.h2}>{name}</h2>
