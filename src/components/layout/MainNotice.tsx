@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../styles/components/MainNotice.module.css";
-import useCluster from "../utils/hooks/useCluster";
+import styles from "../../styles/components/MainNotice.module.css";
+import useCluster from "../../utils/hooks/useCluster";
 
 const MainNotice = () => {
   const {
