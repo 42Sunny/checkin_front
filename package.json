@@ -1,6 +1,6 @@
 {
   "name": "42checkin",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "private": true,
   "description": "해당 저장소는 42서울 본과정생들의 클러스터 체크인, 체크아웃을 위한 사이트의 클라이언트 프로젝트입니다.",
   "license": "MIT",

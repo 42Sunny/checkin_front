@@ -13,6 +13,13 @@ const checkLists = [
   "마스크를 반드시 상시 착용하고 방역수칙을 준수할 것을 약속하며, 모든 설문을 이상없이 작성했음을 확인합니다.",
 ];
 
+const isWeekend = () => {
+  const day = new Date().getDay();
+  if (day === 6 || day === 7) return true;
+  return false;
+};
+const deskLunchTime = isWeekend() ? "11:00 ~ 12:00" : "13:00 ~ 14:00";
+
 interface CardInputProps {
   cardNum: string;
   handleCardNumberChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -87,7 +94,7 @@ const CheckInUi: React.FC<IProps> = ({ handleCheckIn }) => {
     <>
       <Box>
         <p> 클러스터 운영시간: {officeHours}</p>
-        <p> 인포데스크 점심시간 13:00 ~ 14:00</p>
+        <p> 인포데스크 점심시간 {deskLunchTime}</p>
       </Box>
       <form className={classes["check-in-form"]} onSubmit={handleCheckIn(cardNum)}>
         <Modal open={isOpened} onClose={handleModalClose}>
