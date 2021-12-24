@@ -2,7 +2,7 @@ import React from "react";
 import App from "../../App";
 import { createWithWrapper } from "../test-utils";
 
-describe("App", () => {
+describe("src/App.tsx", () => {
   it("to match snapshot", () => {
     const component = createWithWrapper(<App />);
 
