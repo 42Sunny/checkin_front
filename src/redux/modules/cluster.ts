@@ -1,4 +1,4 @@
-import { createAction, ActionType } from "typesafe-actions";
+import { ActionType, createAction, Reducer } from "typesafe-actions";
 import { formatOfficeHours } from "../../utils/time";
 
 // actions
@@ -59,6 +59,7 @@ const cluster = (state = initialState, action: ClusterActions): Cluster => {
     }
     default:
       return state;
+    }
   }
 };
 

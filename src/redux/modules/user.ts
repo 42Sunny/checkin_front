@@ -1,5 +1,5 @@
-import { createAction, ActionType } from "typesafe-actions";
 import * as Sentry from "@sentry/react";
+import { ActionType, createAction, Reducer } from "typesafe-actions";
 import DEFAULT_PROFILE from "../../assets/user-default.png";
 // actions
 const LOGIN = "user/LOGIN";
@@ -20,7 +20,7 @@ const actions = { setCardNum, setUser, login, logout, setAuth };
 type UserActions = ActionType<typeof actions>;
 
 // initialState
-const initialState: User = {
+export const initialState: User = {
   isLogin: false,
   id: "",
   cardNum: "",
@@ -32,7 +32,7 @@ const initialState: User = {
 };
 
 // reducer
-const user = (state = initialState, action: UserActions) => {
+const user: Reducer<User, UserActions> = (state = initialState, action): User => {
   switch (action.type) {
     case LOGIN:
       return {
