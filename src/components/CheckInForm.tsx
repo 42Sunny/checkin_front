@@ -10,6 +10,7 @@ interface CardInputProps {
 
 const CardInput: React.FC<CardInputProps> = ({ cardNum, handleCardNumberChange }) => (
   <input
+    tabIndex={0}
     className={classes.cardNumber}
     type='number'
     min={1}

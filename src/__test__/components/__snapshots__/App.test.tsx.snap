@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App to match snapshot 1`] = `
+exports[`src/App.tsx to match snapshot 1`] = `
 <main
   className="wrapper"
 >
