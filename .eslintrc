@@ -15,6 +15,7 @@
     "camelcase": "off",
     "no-console": "warn",
     "react/require-default-props": "off",
-    "react/prop-type": "off"
+    "react/prop-type": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }

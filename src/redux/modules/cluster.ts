@@ -1,10 +1,10 @@
-import { createAction, ActionType } from "typesafe-actions";
+import { ActionType, createAction, Reducer } from "typesafe-actions";
 import { formatOfficeHours } from "../../utils/time";
 
 // actions
 const SET_CLUSTER = "cluster/SET_CLUSTER";
 const SET_CURRENT_USER_COUNT = "cluster/SET_CURRENT_USER_COUNT";
-// action creators
+// action creators}
 
 export const setCluster = createAction(SET_CLUSTER)<Omit<Cluster, "officeHours">>();
 export const setCurrentUserCount =
@@ -13,8 +13,8 @@ export const setCurrentUserCount =
 const actions = { setCluster, setCurrentUserCount };
 type ClusterActions = ActionType<typeof actions>;
 
-// initalState
-const initalState: Cluster = {
+// initialState
+export const initialState: Cluster = {
   openAt: "",
   closeAt: "",
   seocho: 0,
@@ -25,7 +25,7 @@ const initalState: Cluster = {
 };
 
 // reducer
-const cluster = (state = initalState, action: ClusterActions): Cluster => {
+const cluster: Reducer<Cluster, ClusterActions> = (state = initialState, action): Cluster => {
   switch (action.type) {
     case SET_CLUSTER: {
       const { openAt, closeAt, gaepo, seocho, gaepoLimitation, seochoLimitation } = action.payload;
@@ -45,8 +45,9 @@ const cluster = (state = initalState, action: ClusterActions): Cluster => {
       const { gaepo, seocho } = action.payload;
       return { ...state, gaepo, seocho };
     }
-    default:
+    default: {
       return state;
+    }
   }
 };
 
