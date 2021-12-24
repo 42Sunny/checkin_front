@@ -23,7 +23,7 @@ const StatusItem: React.FC<StatusItemProps> = ({ name, current, limitation }) =>
       <span className={classes.title}>
         {name}
         <span className={classes.count}>
-          <span>
+          <span data-testid={`${name}-cadet-count`}>
             {current} / {limitation}
           </span>
         </span>
