@@ -11,7 +11,7 @@ interface UtilBoxProps {
 }
 const UtilBox: React.FC<UtilBoxProps> = ({ handleFlip }) => (
   <div className={classes["util-box"]}>
-    <ListIcon onClick={handleFlip} />
+    <ListIcon data-testid='flip-button' onClick={handleFlip} />
   </div>
 );
 

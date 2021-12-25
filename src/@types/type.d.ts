@@ -2,7 +2,7 @@ interface User {
   isLogin: boolean;
   id: string;
   cardNum: string;
-  state: "checkIn" | "checkOut";
+  state: "checkIn" | "checkOut" | null;
   checkinAt: string | null;
   checkoutAt: string | null;
   profile: string;
