@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`src/components/ProfileCard.tsx matches snapshot 1`] = `
+<div
+  className="profileCard"
+>
+  <img
+    alt="logo"
+    className="logo"
+    src="42-logo-black.png"
+  />
+  <div
+    className="util-box"
+  >
+    <svg
+      aria-hidden={true}
+      className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+      data-testid="flip-button"
+      focusable="false"
+      onClick={[MockFunction]}
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"
+      />
+    </svg>
+  </div>
+  <div
+    className="profile-wrapper"
+  >
+    <img
+      alt="profile"
+      className="profile"
+      src="user-default.png"
+    />
+    <h2
+      className="userId"
+    >
+      
+    </h2>
+  </div>
+  <hr
+    className="divider"
+  />
+  <div
+    className="box"
+  >
+    <p>
+       클러스터 운영시간: 
+      
+    </p>
+    <p>
+       인포데스크 점심시간 
+      11:00 ~ 12:00
+    </p>
+  </div>
+  <form
+    className="check-in-form"
+  >
+    <input
+      className="cardNumber"
+      inputMode="decimal"
+      min={1}
+      onChange={[Function]}
+      placeholder="카드 번호"
+      step={1}
+      tabIndex={0}
+      type="number"
+      value=""
+    />
+    <div
+      className="checkWrap"
+    >
+      <label
+        className="text"
+      >
+        <input
+          checked={false}
+          className="checkbox"
+          onChange={[Function]}
+          type="checkbox"
+        />
+        방역수칙에 동의하고 입장합니다.
+      </label>
+      <button
+        className="checkDetail"
+        onClick={[Function]}
+        type="button"
+      >
+        자세히
+      </button>
+    </div>
+    <button
+      className="button green"
+      color="green"
+      disabled={true}
+      type="submit"
+    >
+      CHECK IN
+    </button>
+  </form>
+</div>
+`;
