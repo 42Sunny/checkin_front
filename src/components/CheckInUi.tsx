@@ -1,5 +1,6 @@
 import { Modal, Box as MuiBox } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import moment from "moment";
 import classes from "../styles/components/CheckInUi.module.css";
 import useCluster from "../utils/hooks/useCluster";
 import Button from "./Button";
@@ -14,8 +15,10 @@ const checkLists = [
 ];
 
 const isWeekend = () => {
-  const day = new Date().getDay();
-  if (day === 6 || day === 7) return true;
+  const today = new Date(moment(new Date()).local().format());
+  console.log(today);
+
+  if (today.getDay() === 6 || today.getDay() === 0) return true;
   return false;
 };
 const deskLunchTime = isWeekend() ? "11:00 ~ 12:00" : "13:00 ~ 14:00";
