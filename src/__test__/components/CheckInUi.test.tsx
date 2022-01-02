@@ -16,7 +16,6 @@ describe("src/components/CheckInUi.tsx", () => {
     render(<CheckInUi handleCheckIn={handleCheckIn} />);
     const infoBtn = screen.getByText("자세히");
     userEvent.click(infoBtn);
-    screen.debug();
     const modal = screen.queryByRole("presentation");
 
     expect(modal).toBeInTheDocument();
