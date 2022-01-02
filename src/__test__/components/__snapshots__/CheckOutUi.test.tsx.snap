@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` matches snapsot 1`] = `
+Array [
+  <div
+    className="box"
+  >
+    <p>
+      체크인 시간: 
+      Invalid date
+    </p>
+  </div>,
+  <form
+    className="checkout-info-wrapper"
+  >
+    <p>
+      카드 번호
+    </p>
+    <p
+      className="cardNum"
+    >
+      
+    </p>
+    <div
+      className="slider-wrapper"
+    >
+      <input
+        className="slider"
+        max={99}
+        min={0}
+        onInput={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        type="range"
+        value={0}
+      />
+      <p
+        className="slider-backgroundText"
+        role="contentinfo"
+      >
+        밀어서 체크아웃
+      </p>
+    </div>
+  </form>,
+]
+`;
