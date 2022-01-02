@@ -15,7 +15,7 @@ const CardNumber: React.FC<CardNumberProps> = ({ cardNum }) => (
 );
 
 interface IProps {
-  handleCheckOut: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleCheckOut: () => Promise<void>;
 }
 const CheckOutForm: React.FC<IProps> = ({ handleCheckOut }) => {
   const [sliderValue, setSliderValue] = useState(0);
@@ -25,11 +25,11 @@ const CheckOutForm: React.FC<IProps> = ({ handleCheckOut }) => {
   } = useUser();
 
   useEffect(() => {
-    if (sliderValue === 100) ref.current?.requestSubmit();
-  }, [sliderValue]);
+    if (sliderValue === 100) handleCheckOut();
+  }, [handleCheckOut, sliderValue]);
 
   return (
-    <form ref={ref} onSubmit={handleCheckOut} className={classes["checkout-info-wrapper"]}>
+    <form ref={ref} className={classes["checkout-info-wrapper"]}>
       <CardNumber cardNum={cardNum} />
       <SlideButton value={sliderValue} setValue={setSliderValue} />
     </form>
