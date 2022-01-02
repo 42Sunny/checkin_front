@@ -28,7 +28,7 @@ const Profile: React.FC<ProfileProps> = ({ profile, userId }) => (
 interface IProps {
   handleFlip: (e: React.MouseEvent) => void;
   handleCheckIn: (cardNum: string) => (e: React.FormEvent<HTMLFormElement>) => Promise<boolean>;
-  handleCheckOut: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleCheckOut: () => Promise<void>;
 }
 
 const ProfileCard: React.FC<IProps> = ({ handleFlip, handleCheckIn, handleCheckOut }) => {

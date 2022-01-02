@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import React from "react";
 import useUser from "../utils/hooks/useUser";
 import { formatToGeneralTime } from "../utils/time";
-import Box from "./common/Box";
 import CheckOutForm from "./CheckOutForm";
+import Box from "./common/Box";
 
 interface IProps {
-  handleCheckOut: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleCheckOut: () => Promise<void>;
 }
 const CheckOutUi: React.FC<IProps> = ({ handleCheckOut }) => {
   const {

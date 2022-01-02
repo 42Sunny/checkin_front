@@ -1,5 +1,4 @@
-import { ActionType, createAction, Reducer } from "typesafe-actions";
-import { formatOfficeHours } from "../../utils/time";
+import { ActionType, createAction } from "typesafe-actions";
 
 // actions
 const SET_CLUSTER = "cluster/SET_CLUSTER";
@@ -19,7 +18,7 @@ const actions = { setCluster, setCurrentUserCount, setOfficeHour, setLunchTime }
 type ClusterActions = ActionType<typeof actions>;
 
 // initialState
-const initialState: Cluster = {
+export const initialState: Cluster = {
   openAt: "",
   closeAt: "",
   seocho: 0,
@@ -57,7 +56,7 @@ const cluster = (state = initialState, action: ClusterActions): Cluster => {
       const { officeLunchTime } = action.payload;
       return { ...state, officeLunchTime };
     }
-    default:
+    default: {
       return state;
     }
   }
