@@ -1,8 +1,6 @@
-import { fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useEffect } from "react";
 import CheckInForm from "../../components/CheckInForm";
-import { act, screen, createWithWrapper, render } from "../test-utils";
+import { createWithWrapper, render, screen } from "../test-utils";
 
 describe("src/components/CheckInForm.tsx", () => {
   const checkInFormProps: {
