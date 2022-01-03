@@ -1,7 +1,7 @@
 // test-utils.jsx
 import { configureStore } from "@reduxjs/toolkit";
 import { Queries, render, RenderResult } from "@testing-library/react";
-import { createBrowserHistory } from "history";
+import { createMemoryHistory } from "history";
 import React, { ReactElement } from "react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
@@ -29,9 +29,14 @@ const customRender = (
   ui: ReactElement,
   preloadedState: RootState = makeCustomStore(),
   { store = configureStore({ reducer: rootReducer, preloadedState }), ...renderOptions } = {},
+  history = createMemoryHistory(),
 ): RenderResult<Queries, HTMLElement> => {
   const Wrapper: any = ({ children }: { children: ReactElement }) => {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <Router history={history}>{children}</Router>
+      </Provider>
+    );
   };
   return render(ui, { wrapper: Wrapper, ...renderOptions });
 };
@@ -39,7 +44,7 @@ const customRender = (
 const createWithWrapper = (children: ReactElement) =>
   renderer.create(
     <Provider store={appStore}>
-      <Router history={createBrowserHistory()}>{children}</Router>
+      <Router history={createMemoryHistory()}>{children}</Router>
     </Provider>,
   );
 

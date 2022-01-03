@@ -7,7 +7,10 @@ const End = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const timeOutId = setTimeout(() => history.push("/checkin"), 1000);
+    const timeOutId = setTimeout(() => {
+      history.push("/checkin");
+      console.log("hi");
+    }, 1000);
     return () => {
       clearTimeout(timeOutId);
     };
