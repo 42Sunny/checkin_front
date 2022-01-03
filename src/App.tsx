@@ -5,9 +5,10 @@ import { getCookieValue } from "./utils/cookie";
 import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";
 import { version } from "../package.json";
+import { formatLunchTime, formatOfficeHours } from "./utils/time";
 
 const App = () => {
-  const { setCluster } = useCluster();
+  const { setCluster, setOfficeHour, setOfficeLunchTime } = useCluster();
   const { login, logout } = useUser();
 
   const getConfig = useCallback(async () => {
@@ -29,11 +30,13 @@ const App = () => {
         gaepo,
         seocho,
       });
+      setOfficeHour({ officeHour: formatOfficeHours({ openAt: open_at, closeAt: close_at }) });
+      setOfficeLunchTime({ officeLunchTime: formatLunchTime(new Date().toString()) });
     } catch (err) {
       console.log(err);
       throw err;
     }
-  }, [setCluster]);
+  }, [setCluster, setOfficeHour, setOfficeLunchTime]);
 
   useEffect(() => {
     if (getCookieValue(process.env.REACT_APP_AUTH_KEY)) login();

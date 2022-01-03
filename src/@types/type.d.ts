@@ -16,7 +16,8 @@ interface Cluster {
   seocho: number;
   seochoLimitation: number;
   gaepoLimitation: number;
-  officeHours: string;
+  officeHour: string;
+  officeLunchTime: string;
 }
 
 interface Status {

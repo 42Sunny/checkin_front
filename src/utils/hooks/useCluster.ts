@@ -8,7 +8,7 @@ const useCluster = () => {
   const cluster = useSelector((state: RootState) => state.clusterReducer);
 
   const setCluster = useCallback(
-    (param: Omit<Cluster, "officeHours">) => {
+    (param: Omit<Cluster, "officeHour" | "officeLunchTime">) => {
       dispatch(clusterActions.setCluster(param));
     },
     [dispatch],
@@ -20,7 +20,20 @@ const useCluster = () => {
     [dispatch],
   );
 
-  return { cluster, setCluster, setCurrentUserCount };
+  const setOfficeHour = useCallback(
+    ({ officeHour }: { officeHour: string }) => {
+      dispatch(clusterActions.setOfficeHour({ officeHour }));
+    },
+    [dispatch],
+  );
+  const setOfficeLunchTime = useCallback(
+    ({ officeLunchTime }: { officeLunchTime: string }) => {
+      dispatch(clusterActions.setLunchTime({ officeLunchTime }));
+    },
+    [dispatch],
+  );
+
+  return { cluster, setCluster, setCurrentUserCount, setOfficeHour, setOfficeLunchTime };
 };
 
 export default useCluster;

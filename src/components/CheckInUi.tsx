@@ -13,14 +13,13 @@ const checkLists = [
   "마스크를 반드시 상시 착용하고 방역수칙을 준수할 것을 약속하며, 모든 설문을 이상없이 작성했음을 확인합니다.",
 ];
 
-const isWeekend = () => {
-  const today = new Date(moment(new Date()).local().format());
-  console.log(today);
+// const isWeekend = () => {
+//   const today = new Date(moment(new Date()).local().format());
+//   if (today.getDay() === 6 || today.getDay() === 0) return true;
+//   return false;
+// };
 
-  if (today.getDay() === 6 || today.getDay() === 0) return true;
-  return false;
-};
-const deskLunchTime = isWeekend() ? "11:00 ~ 12:00" : "13:00 ~ 14:00";
+// const deskLunchTime = isWeekend() ? "11:00 ~ 12:00" : "13:00 ~ 14:00";
 
 interface CardInputProps {
   cardNum: string;
@@ -60,7 +59,7 @@ const CheckInUi: React.FC<IProps> = ({ handleCheckIn }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const {
-    cluster: { officeHours },
+    cluster: { officeHour, officeLunchTime },
   } = useCluster();
 
   const handleModalClose = () => {
@@ -74,8 +73,8 @@ const CheckInUi: React.FC<IProps> = ({ handleCheckIn }) => {
   return (
     <>
       <Box>
-        <p> 클러스터 운영시간: {officeHours}</p>
-        <p> 인포데스크 점심시간 {deskLunchTime}</p>
+        <p> 클러스터 운영시간: {officeHour}</p>
+        <p> 인포데스크 점심시간 {officeLunchTime}</p>
       </Box>
       <Modal open={isOpened} onClose={handleModalClose}>
         <MuiBox>
