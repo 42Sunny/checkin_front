@@ -9,7 +9,6 @@ const End = () => {
   useEffect(() => {
     const timeOutId = setTimeout(() => {
       history.push("/checkin");
-      console.log("hi");
     }, 1000);
     return () => {
       clearTimeout(timeOutId);

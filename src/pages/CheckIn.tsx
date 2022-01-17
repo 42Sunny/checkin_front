@@ -95,7 +95,7 @@ const CheckIn = () => {
         return true;
       } catch (err: any) {
         let message = GENERAL_CHECK_IN_ERROR;
-        message = err?.response?.data?.message || err.message || message;
+        message = err.message || message;
         alert(message);
         window.location.reload();
         throw err;
@@ -115,7 +115,7 @@ const CheckIn = () => {
       history.push("/end");
     } catch (err: any) {
       let message = GENERAL_CHECK_OUT_ERROR;
-      message = err?.response?.data?.message || err.message || message;
+      message = err.message || message;
       alert(message);
       window.location.reload();
       throw err;
