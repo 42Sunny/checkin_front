@@ -42,7 +42,6 @@ const styles = {
     marginTop: "0px",
     minHeight: "auto",
     fontWeight: "500",
-    fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     marginBottom: "3px",
     textDecoration: "none",
     "& small": {
@@ -62,6 +61,9 @@ const styles = {
     "&:hover": {
       background: "white",
     },
+  },
+  forceOutBtn: {
+    padding: "0.1rem",
   },
 };
 
@@ -255,7 +257,7 @@ function CheckInLog() {
                         onClick={checkOutOnClick}
                         data-idx={logType === 3 ? log._id : log.User._id}
                       >
-                        퇴실 처리
+                        퇴실
                       </button>
                     ) : null,
                   ];

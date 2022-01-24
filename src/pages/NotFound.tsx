@@ -12,7 +12,6 @@ const useStyles = makeStyles({
   homeBtn: {
     color: "black",
     background: "white",
-    fontFamily: "Futura",
     border: "none",
     "&:hover": {
       background: "white",

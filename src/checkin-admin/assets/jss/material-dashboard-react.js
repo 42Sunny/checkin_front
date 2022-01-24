@@ -38,13 +38,7 @@ const hexToRgb = (input) => {
   let first = input[0] + input[1];
   let second = input[2] + input[3];
   let last = input[4] + input[5];
-  return (
-    parseInt(first, 16) +
-    ", " +
-    parseInt(second, 16) +
-    ", " +
-    parseInt(last, 16)
-  );
+  return parseInt(first, 16) + ", " + parseInt(second, 16) + ", " + parseInt(last, 16);
 };
 
 // ##############################
@@ -65,7 +59,15 @@ const container = {
 };
 
 const defaultFont = {
-  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily: [
+    "Helvetica Neue",
+    "Helvetica",
+    "Arial",
+    "Apple SD Gothic Neo",
+    "Noto Sans CJK KR",
+    "Malgun Gothic",
+    "sans-serif",
+  ],
   fontWeight: "300",
   lineHeight: "1.5em",
 };
@@ -154,33 +156,27 @@ const roseBoxShadow = {
 };
 
 const warningCardHeader = {
-  background:
-    "linear-gradient(60deg, " + warningColor[1] + ", " + warningColor[2] + ")",
+  background: "linear-gradient(60deg, " + warningColor[1] + ", " + warningColor[2] + ")",
   ...warningBoxShadow,
 };
 const successCardHeader = {
-  background:
-    "linear-gradient(60deg, " + successColor[1] + ", " + successColor[2] + ")",
+  background: "linear-gradient(60deg, " + successColor[1] + ", " + successColor[2] + ")",
   ...successBoxShadow,
 };
 const dangerCardHeader = {
-  background:
-    "linear-gradient(60deg, " + dangerColor[1] + ", " + dangerColor[2] + ")",
+  background: "linear-gradient(60deg, " + dangerColor[1] + ", " + dangerColor[2] + ")",
   ...dangerBoxShadow,
 };
 const infoCardHeader = {
-  background:
-    "linear-gradient(60deg, " + infoColor[1] + ", " + infoColor[2] + ")",
+  background: "linear-gradient(60deg, " + infoColor[1] + ", " + infoColor[2] + ")",
   ...infoBoxShadow,
 };
 const primaryCardHeader = {
-  background:
-    "linear-gradient(60deg, " + primaryColor[1] + ", " + primaryColor[2] + ")",
+  background: "linear-gradient(60deg, " + primaryColor[1] + ", " + primaryColor[2] + ")",
   ...primaryBoxShadow,
 };
 const roseCardHeader = {
-  background:
-    "linear-gradient(60deg, " + roseColor[1] + ", " + roseColor[2] + ")",
+  background: "linear-gradient(60deg, " + roseColor[1] + ", " + roseColor[2] + ")",
   ...roseBoxShadow,
 };
 
@@ -231,7 +227,6 @@ const title = {
   marginTop: "30px",
   marginBottom: "25px",
   minHeight: "32px",
-  fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
   "& small": {
     color: grayColor[1],
     fontWeight: "400",
