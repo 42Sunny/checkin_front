@@ -17,7 +17,7 @@ const formatLunchTime = (time: string) => {
     return false;
   };
 
-  return isWeekend() ? "11:00 ~ 12:00" : "13:00 ~ 14:00";
+  return isWeekend() ? "11:00 ~ 12:00" : "11:00~12:00";
 };
 
 const formatToGeneralTime = (time: Date) => {
