@@ -1,24 +1,24 @@
-import axios from 'axios';
+import axios from "axios";
 
 const CLUSTER = {
-  0: 'gaepo',
-  1: 'seocho'
+  0: "gaepo",
+  1: "seocho",
 };
 const ALL_CARD_CNT = 1000;
-const apiUrl = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 const instance = axios.create({
-  baseURL: apiUrl,
+  baseURL: API_URL,
   withCredentials: true,
   headers: {
-    'X-42Cadet-Auth-Key': process.env.REACT_APP_X_42CADET_AUTH
-  }
+    "X-42Cadet-Auth-Key": process.env.REACT_APP_X_42CADET_AUTH,
+  },
 });
 
 export const getUserStatus = async () => {
   return await instance.get(`/user/status`);
 };
 
-export const forceCheckOut = async userId => {
+export const forceCheckOut = async (userId) => {
   return await instance.post(`/user/forceCheckOut/${userId}`);
 };
 
@@ -42,7 +42,7 @@ export const getMaxCapacity = async () => {
   return await instance.get(`/config`);
 };
 
-export const setMaxCapacity = async capacity => {
+export const setMaxCapacity = async (capacity) => {
   return await instance.put(`/config`, capacity);
 };
 

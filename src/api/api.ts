@@ -2,10 +2,10 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import * as Sentry from "@sentry/react";
 import ApiUtils from "./apiUtils";
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL;
 
 const instance = axios.create({
-  baseURL: apiUrl,
+  baseURL: API_URL,
   withCredentials: true,
   headers: {
     "X-42Cadet-Auth-Key": process.env.REACT_APP_X_42CADET_AUTH,
@@ -20,7 +20,7 @@ instance.interceptors.response.use(
 );
 
 class Api {
-  static baseUrl = apiUrl;
+  static baseUrl = API_URL;
 
   static get<T = any>(
     url: string,
