@@ -3,9 +3,10 @@ import * as Sentry from "@sentry/react";
 import ApiUtils from "./apiUtils";
 
 const API_URL = process.env.REACT_APP_API_URL;
+const VERSION_PATH = "/v1";
 
 const instance = axios.create({
-  baseURL: API_URL,
+  baseURL: API_URL + VERSION_PATH,
   withCredentials: true,
   headers: {
     "X-42Cadet-Auth-Key": process.env.REACT_APP_X_42CADET_AUTH,
