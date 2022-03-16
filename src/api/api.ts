@@ -5,7 +5,7 @@ import ApiUtils from "./apiUtils";
 const API_URL = process.env.REACT_APP_API_URL;
 const VERSION_PATH = "/v1";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseURL: API_URL + VERSION_PATH,
   withCredentials: true,
   headers: {

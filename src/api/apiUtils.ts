@@ -4,7 +4,7 @@ class ApiUtils {
     const params = keys.map((key) => {
       return `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`;
     });
-    if (!params) return "";
+    if (!params.length) return "";
     const queryParam = `?${params.join("&")}`;
     return queryParam;
   }
