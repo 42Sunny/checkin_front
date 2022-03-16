@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 const VERSION_PATH = "/v1";
 
 export const instance = axios.create({
-  baseURL: API_URL + VERSION_PATH,
+  baseURL: API_URL,
   withCredentials: true,
   headers: {
     "X-42Cadet-Auth-Key": process.env.REACT_APP_X_42CADET_AUTH,
