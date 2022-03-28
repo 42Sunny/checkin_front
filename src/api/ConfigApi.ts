@@ -1,4 +1,4 @@
-import Api from "./api";
+import { instance, makeAPIPath } from "./baseAPI";
 
 export interface GetConfigResponse {
   actor: null | string;
@@ -18,11 +18,11 @@ export interface GetConfigResponse {
   _id: number;
   _comment: number;
 }
-class ConfigApi {
-  static baseUrl = "/config";
 
-  static getConfig() {
-    return Api.get<GetConfigResponse>(`${ConfigApi.baseUrl}`);
-  }
-}
-export default ConfigApi;
+export const getConfigInfo = () => {
+  return instance.get(makeAPIPath("config"));
+};
+
+export const getClusterUsingInfo = () => {
+  return instance.get(makeAPIPath("cluster/using"));
+};

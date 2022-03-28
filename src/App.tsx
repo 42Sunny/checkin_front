@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect } from "react";
-import { ConfigApi, UserApi } from "./api";
 import AppRouter from "./routes/AppRouter";
 import { getCookieValue } from "./utils/cookie";
 import useCluster from "./utils/hooks/useCluster";
 import useUser from "./utils/hooks/useUser";
 import { version } from "../package.json";
 import { formatLunchTime, formatOfficeHours } from "./utils/time";
+import { getClusterUsingInfo, getConfigInfo } from "./api/configAPI";
 
 const App = () => {
   const { setCluster, setOfficeHour, setOfficeLunchTime } = useCluster();
@@ -15,13 +15,16 @@ const App = () => {
     try {
       const [
         {
-          data: { open_at, close_at, seocho: seochoLimitation, gaepo: gaepoLimitation },
+          data: {
+            payload: { open_at, close_at, seocho: seochoLimitation, gaepo: gaepoLimitation },
+          },
         },
         {
-          data: { gaepo, seocho },
+          data: {
+            payload: { gaepo, seocho },
+          },
         },
-      ] = await Promise.all([ConfigApi.getConfig(), UserApi.getUsingCard()]);
-
+      ] = await Promise.all([getConfigInfo(), getClusterUsingInfo()]);
       setCluster({
         openAt: open_at,
         closeAt: close_at,

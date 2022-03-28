@@ -1,7 +1,8 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { UserApi } from "../api";
+import { getClusterUsingInfo } from "../api/configAPI";
+import { getDailyUsage, getStatus, postCheckIn, postCheckOut } from "../api/userAPI";
 import ClusterStatusBoard from "../components/common/ClusterStatusBoard";
 import ProfileCard from "../components/ProfileCard";
 import TimeLogCard from "../components/TimeLogCard";
@@ -12,12 +13,14 @@ import useUser from "../utils/hooks/useUser";
 import { formatToGeneralTime } from "../utils/time";
 
 const getUserStatus = async () => {
-  const getUserStatusRes = await UserApi.getUserStatus();
+  const response = await getStatus();
+  console.log(response);
+  const clusterResponse = await getClusterUsingInfo();
   const {
     user: { card, login, profile_image_url, state, checkin_at, checkout_at },
-    cluster: { gaepo, seocho },
     isAdmin,
-  } = getUserStatusRes.data;
+  } = response.data.payload;
+  const { gaepo, seocho } = clusterResponse.data.payload;
   const cardNum = card !== null ? card : "";
   return {
     user: {
@@ -33,13 +36,12 @@ const getUserStatus = async () => {
   };
 };
 
-const getLogs = async () => {
+export const getLogs = async () => {
   const today = new Date();
   const from = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth(), 1));
   const to = formatToGeneralTime(new Date(today.getFullYear(), today.getMonth() + 1, 0));
-
-  const response = await UserApi.getDailyUsage({ from, to });
-  const logData = response.data.list;
+  const response = await getDailyUsage({ from, to });
+  const logData = response.data.payload;
   return logData.reverse();
 };
 
@@ -72,6 +74,7 @@ const CheckIn = () => {
       setLogs(getLogsData);
     } catch (e) {
       setLogs([]);
+      console.log(e);
       alert("유저 정보가 올바르지 않습니다.\n 반복될 경우 관리자에게 요청해주세요");
       removeCookieValue(process.env.REACT_APP_AUTH_KEY);
       logout();
@@ -89,16 +92,18 @@ const CheckIn = () => {
       setIsLoading(true);
       try {
         if (userState === "checkIn") throw new Error(ALREADY_CHECK_IN_ERROR);
-        const { data: checkinData } = await UserApi.postCheckIn({ cardNum });
-        if (!checkinData.result) throw new Error(GENERAL_CHECK_IN_ERROR);
+        const response = await postCheckIn({ cardNum });
+
+        if (response.status !== 200) throw new Error(GENERAL_CHECK_IN_ERROR);
         history.push("/end");
         return true;
-      } catch (err: any) {
-        let message = GENERAL_CHECK_IN_ERROR;
-        message = err.message || message;
+      } catch (error: any) {
+        console.log(error);
+        const message = GENERAL_CHECK_IN_ERROR;
+        //  message = error.message || message;
         alert(message);
         window.location.reload();
-        throw err;
+        throw error;
       } finally {
         setIsLoading(false);
       }
@@ -110,7 +115,7 @@ const CheckIn = () => {
     setIsLoading(true);
     try {
       if (userState === "checkOut") throw new Error(ALREADY_CHECK_OUT_ERROR);
-      const { data } = await UserApi.postCheckOut();
+      const { data } = await postCheckOut();
       if (!data) throw new Error(GENERAL_CHECK_OUT_ERROR);
       history.push("/end");
     } catch (err: any) {

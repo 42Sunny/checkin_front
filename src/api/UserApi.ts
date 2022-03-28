@@ -1,72 +1,85 @@
-import Api from "./api";
+import Api, { instance, makeAPIPath } from "./baseAPI";
 
 export interface GetUserStatusResponse {
-  user: {
-    _id: number;
-    card_no: null | number;
-    login: string;
-    card: string | null;
-    state: "checkIn" | "checkOut" | null;
-    log_id: number;
-    checkin_at: string | null;
-    checkout_at: string | null;
-    profile_image_url: string;
+  payload: {
+    user: {
+      _id: number;
+      card_no: null | number;
+      login: string;
+      card: string | null;
+      state: "checkIn" | "checkOut" | null;
+      log_id: number;
+      checkin_at: string | null;
+      checkout_at: string | null;
+      profile_image_url: string;
+    };
+    cluster: {
+      gaepo: number;
+      seocho: number;
+    };
+    isAdmin: boolean;
   };
-  cluster: {
-    gaepo: number;
-    seocho: number;
-  };
-  isAdmin: boolean;
 }
 
 export interface PostCheckInRequest {
   cardNum: string;
 }
 export interface PostCheckInResponse {
+  status: number;
   result: boolean;
-  notice: boolean;
+  code: number;
+  payload: {
+    card_no: number;
+    state: "checkIn" | "checkOut";
+    prev_state: "checkOut";
+    notice: boolean;
+  };
 }
 export interface GetUsageRequest {
   from: string;
   to: string;
 }
 export interface GetDailyUsageResponse {
-  list: {
+  payload: {
     login: string;
     date: string;
     seconds: string;
   }[];
 }
+
+export interface GetUserStatusV1Response {
+  payload: {
+    user: {
+      login: string;
+      card: null | number;
+      state: "checkIn" | "checkOut";
+      log_id: number;
+      checkin_at: null | Date;
+      checkout_at: null | Date;
+      profile_image_url: string;
+    };
+    isAdmin: boolean;
+  };
+}
+
 export interface GetUsingCardResponse {
   gaepo: number;
   seocho: number;
 }
-
 export type PostCheckOutResponse = boolean;
 
-class UserApi {
-  static baseUrl = "/user";
+export const getStatus = () => {
+  return instance.get(makeAPIPath(`user/status`));
+};
 
-  static usageUrl = `${UserApi.baseUrl}/usage`;
+export const getDailyUsage = ({ from, to }: GetUsageRequest) => {
+  return instance.get(makeAPIPath(`user/usage?from=${from}&to=${to}`));
+};
 
-  static getDailyUsage(params: GetUsageRequest) {
-    return Api.get<GetDailyUsageResponse>(`${UserApi.usageUrl}/daily`, params);
-  }
+export const postCheckIn = ({ cardNum }: PostCheckInRequest) => {
+  return instance.post(makeAPIPath(`user/checkIn/${cardNum}`));
+};
 
-  static getUserStatus() {
-    return Api.get<GetUserStatusResponse>(`${UserApi.baseUrl}/status`);
-  }
-
-  static postCheckIn(params: PostCheckInRequest) {
-    return Api.post<PostCheckInResponse>(`${UserApi.baseUrl}/checkIn/${params.cardNum}`);
-  }
-
-  static postCheckOut() {
-    return Api.post<PostCheckOutResponse>(`${UserApi.baseUrl}/checkOut`);
-  }
-
-  static getUsingCard() {
-    return Api.get<GetUsingCardResponse>(`${UserApi.baseUrl}/using`);
-  }
-}
-export default UserApi;
+export const postCheckOut = () => {
+  return instance.post(makeAPIPath(`user/checkOut`));
+};

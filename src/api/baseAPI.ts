@@ -1,9 +1,11 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import * as Sentry from "@sentry/react";
-import ApiUtils from "./apiUtils";
+import ApiUtils from "./utilsAPI";
 
 const API_URL = process.env.REACT_APP_API_URL;
-const VERSION_PATH = "/v1";
+
+export const VERSION_PATH = "v1";
+export const makeAPIPath = (path: string) => `${VERSION_PATH}/${path}`;
 
 export const instance = axios.create({
   baseURL: API_URL,
@@ -16,7 +18,7 @@ export const instance = axios.create({
 instance.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError) => {
-    return Promise.reject(error.response?.data);
+    return Promise.reject(error.response?.payload);
   },
 );
 
