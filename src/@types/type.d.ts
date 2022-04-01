@@ -26,7 +26,13 @@ interface Status {
 }
 
 interface Log {
+  actor: string;
+  checkin_at: string;
+  checkout_at: string;
+  created_at: string;
+  deleted_at: null | string;
+  duration: number;
   login: string;
-  date: string;
-  seconds: string;
+  updated_at: string | null;
+  _id: number;
 }

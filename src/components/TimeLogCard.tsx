@@ -27,34 +27,39 @@ interface LogDataProps {
   log: Log;
 }
 
-const LogData: React.FC<LogDataProps> = ({ log: { date, seconds } }) => (
-  <li className={classes["log-data"]}>
-    <time dateTime={date}>{date}</time>
-    <div>{moment.utc(+seconds * 1000).format("HH:mm:ss")}</div>
-  </li>
-);
+const LogData: React.FC<LogDataProps> = ({ log: { created_at, duration } }) => {
+  const date = created_at.split("T")[0];
+  return (
+    <li className={classes["log-data"]}>
+      <time dateTime={date}>{date}</time>
+      <div>{moment.utc(duration * 1000).format("HH:mm:ss")}</div>
+    </li>
+  );
+};
 
 interface LogDataListProps {
   logs: Log[];
 }
 
-const LogDataList: React.FC<LogDataListProps> = ({ logs }) => (
-  <>
-    <li className={classes["log-data-header"]}>
-      <div>날짜</div>
-      <div>이용 시간</div>
-    </li>
-    <hr className={classes.divider} />
-    <ul className={classes["log-data-wrapper"]}>
-      {logs.map((log, idx) => (
-        <div key={idx.toString()}>
-          <LogData log={log} />
-          <hr className={classes.divider} />
-        </div>
-      ))}
-    </ul>
-  </>
-);
+const LogDataList: React.FC<LogDataListProps> = ({ logs }) => {
+  return (
+    <>
+      <li className={classes["log-data-header"]}>
+        <div>날짜</div>
+        <div>이용 시간</div>
+      </li>
+      <hr className={classes.divider} />
+      <ul className={classes["log-data-wrapper"]}>
+        {logs.map((log, idx) => (
+          <div key={idx.toString()}>
+            <LogData log={log} />
+            <hr className={classes.divider} />
+          </div>
+        ))}
+      </ul>
+    </>
+  );
+};
 interface IProps {
   handleFlip: () => void;
   logs: Log[];
@@ -69,7 +74,6 @@ const TimeLogCard: React.FC<IProps> = ({ handleFlip, logs }) => {
   useEffect(() => {
     if (checkinAt) setCheckinTime(formatToGeneralTime(new Date(checkinAt)));
   }, [checkinAt]);
-
   return (
     <div className={classes["time-log-wrapper"]}>
       <Header checkinTime={checkinTime} />

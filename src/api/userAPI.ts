@@ -1,4 +1,4 @@
-import Api, { instance, makeAPIPath } from "./baseAPI";
+import { instance, makeAPIPath } from "./baseAPI";
 
 export interface GetUserStatusResponse {
   payload: {

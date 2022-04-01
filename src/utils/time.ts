@@ -21,7 +21,7 @@ const formatLunchTime = (time: string) => {
 };
 
 const formatToGeneralTime = (time: Date) => {
-  return moment(time).format("YYYY-MM-DD");
+  return moment(time).format("YYYY-MM-DD H:mm");
 };
 
 export { formatOfficeHours, formatLunchTime, formatToGeneralTime };

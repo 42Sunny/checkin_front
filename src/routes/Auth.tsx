@@ -7,7 +7,7 @@ interface IProps extends RouteProps {
 }
 const Auth: React.FC<IProps> = ({ component: Component, ...restProps }) => {
   const {
-    user: { isLogin, isAdmin },
+    user: { isLogin },
   } = useUser();
   const history = useHistory();
   return (

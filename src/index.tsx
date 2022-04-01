@@ -3,7 +3,8 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
-import moment from "moment";
+import moment from "moment-timezone";
+
 import { Integrations } from "@sentry/tracing";
 import * as Sentry from "@sentry/react";
 import App from "./App";

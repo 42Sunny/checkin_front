@@ -14,7 +14,6 @@ import { formatToGeneralTime } from "../utils/time";
 
 const getUserStatus = async () => {
   const response = await getStatus();
-  console.log(response);
   const clusterResponse = await getClusterUsingInfo();
   const {
     user: { card, login, profile_image_url, state, checkin_at, checkout_at },
@@ -98,6 +97,8 @@ const CheckIn = () => {
         history.push("/end");
         return true;
       } catch (error: any) {
+        // TODO: message undefined 확인해야함.
+
         console.log(error);
         const message = GENERAL_CHECK_IN_ERROR;
         //  message = error.message || message;
@@ -119,8 +120,8 @@ const CheckIn = () => {
       if (!data) throw new Error(GENERAL_CHECK_OUT_ERROR);
       history.push("/end");
     } catch (err: any) {
-      let message = GENERAL_CHECK_OUT_ERROR;
-      message = err.message || message;
+      const message = GENERAL_CHECK_OUT_ERROR;
+      //  message = err.message || message;
       alert(message);
       window.location.reload();
       throw err;

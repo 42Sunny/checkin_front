@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import * as Sentry from "@sentry/react";
 import ApiUtils from "./utilsAPI";
 
 const API_URL = process.env.REACT_APP_API_URL;

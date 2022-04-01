@@ -7,12 +7,12 @@ export interface GetConfigResponse {
   checkin_at: string | null;
   checkout_at: string | null;
   close_at: string | null;
+  open_at: string;
   created_at: string | null;
   deleted_at: string | null;
   end_at: string | null;
   env: "production" | "development" | "local";
   gaepo: number;
-  open_at: string;
   seocho: number;
   updated_at: string | null;
   _id: number;
