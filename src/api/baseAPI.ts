@@ -17,7 +17,7 @@ export const instance = axios.create({
 instance.interceptors.response.use(
   (response: AxiosResponse) => response,
   (error: AxiosError) => {
-    return Promise.reject(error.response?.payload);
+    return Promise.reject(error?.payload);
   },
 );
 
