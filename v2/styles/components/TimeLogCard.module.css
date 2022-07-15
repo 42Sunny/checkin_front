@@ -1,0 +1,84 @@
+.time-log-wrapper {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2.4rem;
+  text-align: center;
+  background-color: white;
+  border-radius: inherit;
+  height: 100%;
+  max-height: 55rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  transform: rotateY(-180deg);
+}
+
+
+.title {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.util-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2.4rem;
+}
+.util-box svg {
+  transform: scale(1.7);
+}
+
+.time-log-header {
+  padding: 1.6rem 0;
+}
+.time-log-title {
+  margin: 0 auto;
+}
+
+.time-log-subtitle {
+  margin: 1rem 0;
+}
+
+.time-log-all-count {
+  width: 100%;
+  text-align: right;
+  margin: 0 0 1.6rem 0;
+}
+
+.log-data-wrapper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 0;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  width: 100%;
+  flex-grow: 1;
+}
+
+.divider {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 0 auto;
+}
+
+.log-data-header {
+  padding: 0.7rem 0;
+  color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  font-weight: bold;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.log-data {
+  padding: 0.7rem 0;
+  color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

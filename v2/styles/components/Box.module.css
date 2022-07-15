@@ -1,0 +1,12 @@
+.box {
+  width: 100%;
+  padding: 5%;
+  border-radius: 5px;
+  background-color: var(--snow);
+  font-size: clamp(0.8em, 4vw, 1em);
+  line-height: 1.5em;
+  text-align: center;
+  color: var(--gray);
+  display: flex;
+  flex-direction: column;
+}
