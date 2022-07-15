@@ -1,0 +1,8 @@
+
+.text-wrapper {
+  height: fit-content;
+  min-height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

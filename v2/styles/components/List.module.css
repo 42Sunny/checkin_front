@@ -1,0 +1,8 @@
+.text {
+  font-size: 1rem;
+  width: 90%;
+  word-break: break-all;
+  margin: 0.4rem 0;
+  padding: 0px;
+  color: var(--black);
+}

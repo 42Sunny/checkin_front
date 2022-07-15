@@ -1,0 +1,8 @@
+.status-board-wrapper {
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(244, 244, 245, 0.1);
+  border-radius: 1.3rem;
+  margin: 1rem 0px;
+  padding: 2rem;
+}

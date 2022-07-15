@@ -1,0 +1,8 @@
+.checkbox {
+  margin-right: 0.6rem;
+}
+.text {
+  color: var(--black);
+  font-size: clamp(0.8em, 4vw, 1em);
+  letter-spacing: -0.02em;
+}
