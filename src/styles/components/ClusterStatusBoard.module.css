@@ -1,6 +1,6 @@
 .wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
   width: 100%;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 1rem;
@@ -11,7 +11,7 @@
 .title {
   position: relative;
   display: inline-block;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.8rem;
   color: rgba(255, 255, 255, 0.5);

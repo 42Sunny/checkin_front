@@ -1,7 +1,6 @@
 .profileCard {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 2.4rem;
   width: 100%;
   max-height: 55rem;
@@ -28,6 +27,7 @@
   flex-basis: 45%;
   align-items: center;
   margin-top: 1rem;
+  position: relative;
 }
 
 .profile {
@@ -64,4 +64,9 @@
 .divider {
   border: 1px solid rgba(0, 0, 0, 0.1);
   width: 100%;
+}
+
+.profile-wrapper div[role=status] {
+  top:10px;
+  right:calc(20%);
 }

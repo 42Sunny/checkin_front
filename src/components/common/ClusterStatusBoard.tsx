@@ -1,49 +1,32 @@
 import React from "react";
 import classes from "../../styles/components/ClusterStatusBoard.module.css";
-import useCluster from "../../utils/hooks/useCluster";
 import Circle from "./Circle";
 
-const getClusterCongestion = (current: number, max: number) => {
-  const state = current / max;
-  if (state > 0.8) return "red";
-  if (state > 0.4) return "orange";
-  return "green";
+type StatusItemProps = {
+  current: number;
+  name: string;
 };
 
-interface StatusItemProps {
-  current: number;
-  limitation: number;
-  name: string;
-}
-
-const StatusItem: React.FC<StatusItemProps> = ({ name, current, limitation }) => {
-  const congestion = getClusterCongestion(current, limitation);
+function StatusItem({ name, current }: StatusItemProps) {
   return (
     <div className={classes.item}>
       <span className={classes.title}>
         {name}
         <span className={classes.count}>
-          <span data-testid={`${name}-cadet-count`}>
-            {current} / {limitation}
-          </span>
+          <span data-testid={`${name}-cadet-count`}>{current}</span>
         </span>
-        <Circle color={congestion} />
+        <Circle color='green' />
       </span>
     </div>
   );
-};
+}
 
-const ClusterStatusBoard = () => {
-  const {
-    cluster: { gaepo, gaepoLimitation, seocho, seochoLimitation },
-  } = useCluster();
-
+function ClusterStatusBoard() {
   return (
     <div className={classes.wrap}>
-      <StatusItem name='개포' current={gaepo} limitation={gaepoLimitation} />
-      <StatusItem name='서초' current={seocho} limitation={seochoLimitation} />
+      <StatusItem name='현재 클러스터 인원' current={677} />
     </div>
   );
-};
+}
 
 export default ClusterStatusBoard;

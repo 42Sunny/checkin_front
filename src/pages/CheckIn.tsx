@@ -1,14 +1,13 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { getClusterUsingInfo } from "../api/configAPI";
-import { getDailyUsage, getStatus, postCheckIn, postCheckOut } from "../api/userAPI";
+import { getDailyUsage, getStatus } from "../api/userAPI";
+import ProfileCard from "../components/Card/ProfileCard";
+import TimeLogCard from "../components/Card/TimeLogCard";
 import ClusterStatusBoard from "../components/common/ClusterStatusBoard";
-import ProfileCard from "../components/ProfileCard";
-import TimeLogCard from "../components/TimeLogCard";
 import classes from "../styles/pages/CheckInPage.module.css";
 import { removeCookieValue } from "../utils/cookie";
-import useCluster from "../utils/hooks/useCluster";
+// import useCluster from "../utils/hooks/useCluster";
 import useUser from "../utils/hooks/useUser";
 import { formatToGeneralTime } from "../utils/time";
 
@@ -44,20 +43,14 @@ export const getLogs = async () => {
   return logData.reverse();
 };
 
-const ALREADY_CHECK_IN_ERROR = "이미 체크인 되었습니다." as const;
-const GENERAL_CHECK_IN_ERROR = "체크인을 처리할 수 없습니다. 관리자에게 문의해주세요." as const;
-const ALREADY_CHECK_OUT_ERROR = "이미 체크아웃 되었습니다." as const;
-const GENERAL_CHECK_OUT_ERROR = "체크아웃을 처리할 수 없습니다. 관리자에게 문의해주세요." as const;
-
 const CheckIn = () => {
-  const history = useHistory();
   const {
     setUser,
     logout,
     setAuth,
     user: { state: userState },
   } = useUser();
-  const { setCurrentUserCount } = useCluster();
+  // const { setCurrentUserCount } = useCluster();
 
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const [logs, setLogs] = useState<Log[]>([]);
@@ -69,7 +62,7 @@ const CheckIn = () => {
       const [getUserStatusData, getLogsData] = await Promise.all([getUserStatus(), getLogs()]);
       setUser(getUserStatusData.user);
       setAuth({ isAdmin: getUserStatusData.isAdmin });
-      setCurrentUserCount(getUserStatusData.cluster);
+      // setCurrentUserCount(getUserStatusData.cluster);
       setLogs(getLogsData);
     } catch (e) {
       setLogs([]);
@@ -79,56 +72,11 @@ const CheckIn = () => {
       logout();
     }
     setIsLoading(false);
-  }, [logout, setAuth, setCurrentUserCount, setUser]);
+  }, [logout, setAuth, setUser]);
 
   const handleFlip = () => {
     setIsCardFlipped((prev) => !prev);
   };
-
-  const handleCheckIn = useCallback(
-    (cardNum: string) => async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      setIsLoading(true);
-      try {
-        if (userState === "checkIn") throw new Error(ALREADY_CHECK_IN_ERROR);
-        const response = await postCheckIn({ cardNum });
-
-        if (response.status !== 200) throw new Error(GENERAL_CHECK_IN_ERROR);
-        history.push("/end");
-        return true;
-      } catch (error: any) {
-        // TODO: message undefined 확인해야함.
-
-        console.log(error);
-        const message = GENERAL_CHECK_IN_ERROR;
-        //  message = error.message || message;
-        alert(message);
-        window.location.reload();
-        throw error;
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [history, userState],
-  );
-
-  const handleCheckOut = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      if (userState === "checkOut") throw new Error(ALREADY_CHECK_OUT_ERROR);
-      const { data } = await postCheckOut();
-      if (!data) throw new Error(GENERAL_CHECK_OUT_ERROR);
-      history.push("/end");
-    } catch (err: any) {
-      const message = GENERAL_CHECK_OUT_ERROR;
-      //  message = err.message || message;
-      alert(message);
-      window.location.reload();
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  }, [history, userState]);
 
   useEffect(() => {
     getUserData();
@@ -146,11 +94,7 @@ const CheckIn = () => {
       <div
         className={`${classes["card-wrapper"]} ${!isCardFlipped ? classes.front : classes.back}`}
       >
-        <ProfileCard
-          handleCheckIn={handleCheckIn}
-          handleCheckOut={handleCheckOut}
-          handleFlip={handleFlip}
-        />
+        <ProfileCard handleFlip={handleFlip} />
         <TimeLogCard logs={logs} handleFlip={handleFlip} />
       </div>
     </>
