@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../../styles/components/Circle.module.css";
+import classes from "styles/components/Circle.module.css";
 
 type CircleProps = {
   color?: string | "green" | "orange" | "red";

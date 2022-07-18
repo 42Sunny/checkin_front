@@ -1,10 +1,9 @@
-import React, { useCallback, useEffect } from "react";
-import AppRouter from "./routes/AppRouter";
-import { getCookieValue } from "./utils/cookie";
-// import useCluster from "./utils/hooks/useCluster";
-import useUser from "./utils/hooks/useUser";
+import React, { useEffect } from "react";
+import AppRouter from "routes/AppRouter";
+import useUser from "utils/hooks/useUser";
+import { getCookieValue } from "utils/cookie";
 import { version } from "../package.json";
-import { getConfigInfo } from "./api/configAPI";
+// import useCluster from "./utils/hooks/useCluster";
 
 const App = () => {
   // const { setCluster, setOfficeHour, setOfficeLunchTime } = useCluster();

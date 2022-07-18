@@ -7,10 +7,10 @@ import moment from "moment-timezone";
 
 import { Integrations } from "@sentry/tracing";
 import * as Sentry from "@sentry/react";
-import App from "./App";
-import configureStore from "./redux/configureStore";
+import configureStore from "redux/configureStore";
+import "styles/index.css";
+import App from "App";
 import reportWebVitals from "./reportWebVitals";
-import "./styles/index.css";
 
 const history = createBrowserHistory();
 

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import userReducer from "./user";
-import clusterReducer from "./cluster";
+import userReducer from "redux/modules/user";
+import clusterReducer from "redux/modules/cluster";
 
 const rootReducer = combineReducers({
   userReducer,

@@ -1,7 +1,7 @@
 import React from "react";
-import classes from "../../styles/components/Card/CardContents.module.css";
-import DurationTime from "../DurationTime";
-import CardItem from "./CardItem";
+import classes from "styles/components/Card/CardContents.module.css";
+import DurationTime from "components/DurationTime";
+import CardItem from "components/Card/CardItem";
 
 function CardContents() {
   return (

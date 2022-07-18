@@ -1,4 +1,4 @@
-import { instance, makeAPIPath } from "./baseAPI";
+import { instance, makeAPIPath } from "api/baseAPI";
 
 export type GetConfigResponse = {
   actor: null | string;

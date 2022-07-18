@@ -1,15 +1,15 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
-import { getClusterUsingInfo } from "../api/configAPI";
-import { getDailyUsage, getStatus } from "../api/userAPI";
-import ProfileCard from "../components/Card/ProfileCard";
-import TimeLogCard from "../components/Card/TimeLogCard";
-import ClusterStatusBoard from "../components/common/ClusterStatusBoard";
-import classes from "../styles/pages/CheckInPage.module.css";
-import { removeCookieValue } from "../utils/cookie";
+import { getClusterUsingInfo } from "api/configAPI";
+import { getDailyUsage, getStatus } from "api/userAPI";
+import ProfileCard from "components/Card/ProfileCard";
+import TimeLogCard from "components/Card/TimeLogCard";
+import ClusterStatusBoard from "components/common/ClusterStatusBoard";
+import classes from "styles/pages/CheckInPage.module.css";
+import { removeCookieValue } from "utils/cookie";
 // import useCluster from "../utils/hooks/useCluster";
-import useUser from "../utils/hooks/useUser";
-import { formatToGeneralTime } from "../utils/time";
+import useUser from "utils/hooks/useUser";
+import { formatToGeneralTime } from "utils/time";
 
 const getUserStatus = async () => {
   const response = await getStatus();

@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/modules";
-import * as userActions from "../../redux/modules/user";
+import { RootState } from "redux/modules";
+import * as userActions from "redux/modules/user";
 
 const useUser = () => {
   const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/react";
 import { ActionType, createAction, Reducer } from "typesafe-actions";
-import DEFAULT_PROFILE from "../../assets/user-default.png";
+import DEFAULT_PROFILE from "assets/user-default.png";
 // actions
 const LOGIN = "user/LOGIN";
 const LOGOUT = "user/LOGOUT";
