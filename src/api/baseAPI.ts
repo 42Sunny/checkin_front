@@ -1,5 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import ApiUtils from "./utilsAPI";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -20,26 +19,3 @@ instance.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-class Api {
-  static baseUrl = API_URL;
-
-  static get<T = any>(
-    url: string,
-    queryParams: Record<string, any> = {},
-    config?: AxiosRequestConfig,
-  ) {
-    return instance.get<T>(url + ApiUtils.convertObjToQueryParams(queryParams), {
-      ...instance.defaults,
-      ...config,
-    });
-  }
-
-  static post<T = any>(url: string, data?: any, config?: AxiosRequestConfig) {
-    return instance.post<T>(url, data, {
-      ...instance.defaults,
-      ...config,
-    });
-  }
-}
-export default Api;

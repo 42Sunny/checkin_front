@@ -1,6 +1,6 @@
 import { instance, makeAPIPath } from "./baseAPI";
 
-export interface GetUserStatusResponse {
+export type GetUserStatusResponse = {
   payload: {
     user: {
       _id: number;
@@ -19,12 +19,12 @@ export interface GetUserStatusResponse {
     };
     isAdmin: boolean;
   };
-}
+};
 
-export interface PostCheckInRequest {
+export type PostCheckInRequest = {
   cardNum: string;
-}
-export interface PostCheckInResponse {
+};
+export type PostCheckInResponse = {
   status: number;
   result: boolean;
   code: number;
@@ -34,20 +34,20 @@ export interface PostCheckInResponse {
     prev_state: "checkOut";
     notice: boolean;
   };
-}
-export interface GetUsageRequest {
+};
+export type GetUsageRequest = {
   from: string;
   to: string;
-}
-export interface GetDailyUsageResponse {
+};
+export type GetDailyUsageResponse = {
   payload: {
     login: string;
     date: string;
     seconds: string;
   }[];
-}
+};
 
-export interface GetUserStatusV1Response {
+export type GetUserStatusV1Response = {
   payload: {
     user: {
       login: string;
@@ -60,12 +60,12 @@ export interface GetUserStatusV1Response {
     };
     isAdmin: boolean;
   };
-}
+};
 
-export interface GetUsingCardResponse {
+export type GetUsingCardResponse = {
   gaepo: number;
   seocho: number;
-}
+};
 export type PostCheckOutResponse = boolean;
 
 export const getStatus = () => {

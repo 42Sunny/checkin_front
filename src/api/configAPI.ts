@@ -1,6 +1,6 @@
 import { instance, makeAPIPath } from "./baseAPI";
 
-export interface GetConfigResponse {
+export type GetConfigResponse = {
   actor: null | string;
   auth: "Slack" | "42";
   begin_at: string | null;
@@ -17,7 +17,7 @@ export interface GetConfigResponse {
   updated_at: string | null;
   _id: number;
   _comment: number;
-}
+};
 
 export const getConfigInfo = () => {
   return instance.get(makeAPIPath("config"));

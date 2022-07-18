@@ -1,4 +1,4 @@
-interface User {
+type User = {
   isLogin: boolean;
   id: string;
   cardNum: string;
@@ -7,7 +7,7 @@ interface User {
   checkoutAt: string | null;
   profile: string;
   isAdmin: boolean;
-}
+};
 
 interface Cluster {
   openAt: string | null;
