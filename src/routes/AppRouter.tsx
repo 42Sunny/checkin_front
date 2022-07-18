@@ -1,10 +1,10 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import CheckInLog from "../checkin-admin/views/CheckInLog";
-import CheckInSetting from "../checkin-admin/views/CheckInSetting";
-import CheckIn from "../pages/CheckIn";
-import Home from "../pages/Home";
-import AuthRoute from "./Auth";
+import CheckInLog from "checkin-admin/views/CheckInLog";
+import CheckInSetting from "checkin-admin/views/CheckInSetting";
+import CheckIn from "pages/CheckIn";
+import Home from "pages/Home";
+import AuthRoute from "routes/Auth";
 
 const AppRouter = () => {
   return (

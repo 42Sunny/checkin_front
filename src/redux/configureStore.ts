@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
-import rootReducer from "./modules/index";
+import rootReducer from "redux/modules/index";
 
 const env = process.env.NODE_ENV;
 

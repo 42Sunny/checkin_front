@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import classes from "../../styles/components/Card/CardItem.module.css";
+import classes from "styles/components/Card/CardItem.module.css";
 
 type PropsTypes = {
   title: string;

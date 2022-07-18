@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "../../styles/components/Checkbox.module.css";
+import classes from "styles/components/Checkbox.module.css";
 
 interface IProps
   extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {

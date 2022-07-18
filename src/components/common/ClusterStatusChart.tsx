@@ -1,7 +1,7 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
-import styles from "../../styles/components/ClusterStatusChart.module.css";
-import useCluster from "../../utils/hooks/useCluster";
+import styles from "styles/components/ClusterStatusChart.module.css";
+import useCluster from "utils/hooks/useCluster";
 
 const data = (cur: number, max: number) => ({
   datasets: [

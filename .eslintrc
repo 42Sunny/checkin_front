@@ -1,5 +1,10 @@
 {
   "extends": ["airbnb-typescript-prettier"],
+  "settings": {
+    "import/resolver": {
+      "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+    }
+  },
   "rules": {
     "prettier/prettier": "warn",
     "react/jsx-props-no-spreading": "off",

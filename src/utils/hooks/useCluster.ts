@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/modules";
-import * as clusterActions from "../../redux/modules/cluster";
+import { RootState } from "redux/modules";
+import * as clusterActions from "redux/modules/cluster";
 
 const useCluster = () => {
   const dispatch = useDispatch();

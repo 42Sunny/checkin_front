@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import localizedFormat from "dayjs/plugin/localizedFormat";
 
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
-import classes from "../../styles/components/Card/TimeLogCard.module.css";
+import classes from "styles/components/Card/TimeLogCard.module.css";
 
 dayjs.extend(localizedFormat);
 dayjs.locale("ko");

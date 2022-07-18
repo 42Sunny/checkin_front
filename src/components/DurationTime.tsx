@@ -1,5 +1,5 @@
 import React from "react";
-import useTimer from "../utils/hooks/useTimer";
+import useTimer from "utils/hooks/useTimer";
 
 type DurationProps = {
   startTime: number;

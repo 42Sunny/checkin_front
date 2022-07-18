@@ -1,10 +1,10 @@
 import ListIcon from "@mui/icons-material/List";
 import React from "react";
-import useUser from "../../utils/hooks/useUser";
-import logo from "../../assets/42-logo-black.png";
-import CardContents from "./CardContents";
-import Circle from "../common/Circle";
-import classes from "../../styles/components/Card/ProfileCard.module.css";
+import CardContents from "components/Card/CardContents";
+import Circle from "components/common/Circle";
+import classes from "styles/components/Card/ProfileCard.module.css";
+import useUser from "utils/hooks/useUser";
+import logo from "assets/42-logo-black.png";
 
 type UtilBoxProps = {
   handleFlip: (e: React.MouseEvent) => void;

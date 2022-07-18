@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "../../styles/components/ClusterStatusBoard.module.css";
-import Circle from "./Circle";
+import classes from "styles/components/ClusterStatusBoard.module.css";
+import Circle from "components/common/Circle";
 
 type StatusItemProps = {
   current: number;
