@@ -1,4 +1,5 @@
 const getCookieValue = (key: string | undefined) => {
+  console.log(key);
   if (key === undefined) return "";
 
   return document.cookie

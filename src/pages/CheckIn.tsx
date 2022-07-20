@@ -1,7 +1,7 @@
 import { Backdrop, CircularProgress } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import { getClusterUsingInfo } from "api/configAPI";
-import { getDailyUsage, getStatus } from "api/userAPI";
+import { getDailyUsage, getStatus, getUserUsagePerDay } from "api/userAPI";
 import ProfileCard from "components/Card/ProfileCard";
 import TimeLogCard from "components/Card/TimeLogCard";
 import ClusterStatusBoard from "components/common/ClusterStatusBoard";
@@ -56,23 +56,35 @@ const CheckIn = () => {
   const [logs, setLogs] = useState<Log[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // const getUserData = useCallback(async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     const [getUserStatusData, getLogsData] = await Promise.all([getUserStatus(), getLogs()]);
+  //     setUser(getUserStatusData.user);
+  //     setAuth({ isAdmin: getUserStatusData.isAdmin });
+  //     // setCurrentUserCount(getUserStatusData.cluster);
+  //     setLogs(getLogsData);
+  //   } catch (e) {
+  //     setLogs([]);
+  //     console.log(e);
+  //     alert("유저 정보가 올바르지 않습니다.\n 반복될 경우 관리자에게 요청해주세요");
+  //     removeCookieValue(process.env.REACT_APP_AUTH_KEY);
+  //     logout();
+  //   }
+  //   setIsLoading(false);
+  // }, [logout, setAuth, setUser]);
+
   const getUserData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const [getUserStatusData, getLogsData] = await Promise.all([getUserStatus(), getLogs()]);
-      setUser(getUserStatusData.user);
-      setAuth({ isAdmin: getUserStatusData.isAdmin });
-      // setCurrentUserCount(getUserStatusData.cluster);
-      setLogs(getLogsData);
+      const data = await getUserUsagePerDay();
+
+      console.log(data);
     } catch (e) {
-      setLogs([]);
       console.log(e);
-      alert("유저 정보가 올바르지 않습니다.\n 반복될 경우 관리자에게 요청해주세요");
-      removeCookieValue(process.env.REACT_APP_AUTH_KEY);
-      logout();
     }
     setIsLoading(false);
-  }, [logout, setAuth, setUser]);
+  }, []);
 
   const handleFlip = () => {
     setIsCardFlipped((prev) => !prev);
