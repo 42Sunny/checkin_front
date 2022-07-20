@@ -1,6 +1,16 @@
 type User = {
   isLogin: boolean;
   id: string;
+  state: "checkIn" | "checkOut" | null;
+  checkinAt: string | null;
+  checkoutAt: string | null;
+  profile: string;
+  isAdmin: boolean;
+};
+
+type User2 = {
+  isLogin: boolean;
+  id: string;
   cardNum: string;
   state: "checkIn" | "checkOut" | null;
   checkinAt: string | null;

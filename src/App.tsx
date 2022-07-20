@@ -3,10 +3,8 @@ import AppRouter from "routes/AppRouter";
 import useUser from "utils/hooks/useUser";
 import { getCookieValue } from "utils/cookie";
 import { version } from "../package.json";
-// import useCluster from "./utils/hooks/useCluster";
 
 const App = () => {
-  // const { setCluster, setOfficeHour, setOfficeLunchTime } = useCluster();
   const { login, logout } = useUser();
 
   useEffect(() => {

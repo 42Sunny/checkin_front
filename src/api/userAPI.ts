@@ -68,6 +68,18 @@ export type GetUsingCardResponse = {
 };
 export type PostCheckOutResponse = boolean;
 
+export const getUserUsagePerDay = () => {
+  return instance.get(makeAPIPath(`usage/perday`));
+};
+
+export const getUserUsagePerWeek = () => {
+  return instance.get(makeAPIPath(`usage/perweek`));
+};
+
+export const getUserUsagePerMonth = () => {
+  return instance.get(makeAPIPath(`usage/permonth`));
+};
+
 export const getStatus = () => {
   return instance.get(makeAPIPath(`user/status`));
 };

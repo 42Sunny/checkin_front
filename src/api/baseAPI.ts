@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
-export const VERSION_PATH = "v1";
+export const VERSION_PATH = "v3";
 export const makeAPIPath = (path: string) => `${VERSION_PATH}/${path}`;
 
 export const instance = axios.create({
